@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">DuAnAndroid</string>
+
+    <!--Login-->
+    <string name="phone_number">Số điện thoại</string>
+    <string name="password">Mật khẩu</string>
+    <string name="title_login_facebook">Bạn có thể đăng nhập bằng</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="btn_create_account">Tạo tài khoản</string>
 </resources>
