@@ -7,4 +7,15 @@
     <string name="title_login_facebook">Bạn có thể đăng nhập bằng</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_create_account">Tạo tài khoản</string>
+    
+    <!--Create an Account-->
+    <string name="name_user">Họ và tên: </string>
+    <string name="Name_user">Nhập họ và tên</string>
+    <string name="Phone">Số điện thoại: </string>
+    <string name="phone">Nhập số điện thoại</string>
+    <string name="pass">Mật khẩu: </string>
+    <string name="Password">Nhập mật khẩu</string>
+    <string name="confirm_password">Xác nhận mật khẩu: </string>
+    <string name="Confirm_password">Nhập lại mật khẩu</string>
+    <string name="btn_sign_up">Đăng ký</string>
 </resources>
