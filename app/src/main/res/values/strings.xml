@@ -17,5 +17,6 @@
     <string name="Password">Nhập mật khẩu</string>
     <string name="confirm_password">Xác nhận mật khẩu: </string>
     <string name="Confirm_password">Nhập lại mật khẩu</string>
-    <string name="btn_sign_up">Đăng ký</string>
+    <string name="btn_signup">Đăng Ký</string>
+
 </resources>
