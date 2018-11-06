@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DuAnAndroid</string>
+    <string name="app_name">Online Store</string>
 
     <!--Login-->
     <string name="phone_number">Số điện thoại</string>
@@ -7,4 +7,5 @@
     <string name="title_login_facebook">Bạn có thể đăng nhập bằng</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_create_account">Tạo tài khoản</string>
+    <string name="ground">HDT Studio</string>
 </resources>
