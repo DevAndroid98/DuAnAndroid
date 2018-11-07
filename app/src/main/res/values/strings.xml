@@ -35,4 +35,17 @@
     <string name="salehalloween">Khuyến mãi cực khủng nhân dịp halloween</string>
     <string name="hotline">Hotline :</string>
     <string name="hotline2">0982776657</string>
+
+    <!--suppport activity-->
+    <string name="email">Email:</string>
+    <string name="email2">ducpaph06617@fpt.edu.vn</string>
+
+    <!--Cart fragment-->
+    <string name="name_product">Tên sản phẩm</string>
+    <string name="colorname">Màu</string>
+    <string name="amount">Số lượng</string>
+    <string name="price">Giá</string>
+    <string name="company_name">Tên công ty</string>
+
+
 </resources>
