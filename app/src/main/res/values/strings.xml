@@ -47,5 +47,11 @@
     <string name="price">Giá</string>
     <string name="company_name">Tên công ty</string>
 
+    <!--nav_menu-->
+    <string name="information">Thông tin tài khoản</string>
+    <string name="cart">Giỏ hàng</string>
+    <string name="support">Trợ giúp</string>
+    <string name="logout">Đăng xuất</string>
+
 
 </resources>
