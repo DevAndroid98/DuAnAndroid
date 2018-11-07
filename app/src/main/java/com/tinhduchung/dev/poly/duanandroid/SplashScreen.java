@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
 
+import spencerstudios.com.bungeelib.Bungee;
+
 public class SplashScreen extends BaseActivity {
     private ImageView imageView2;
     private TextView txtLogo;
@@ -123,6 +125,7 @@ public class SplashScreen extends BaseActivity {
                         numberProgressBar.setProgress(intI);
                         if (intI==100){
                             startActivity(new Intent(SplashScreen.this,LoginActivity.class));
+                            Bungee.zoom(context);
                             finish();
                         }
                     }

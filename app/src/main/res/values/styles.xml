@@ -33,4 +33,10 @@
         <item name="progress_unreached_bar_height">0.75dp</item>
     </style>
 
+    <style name="CustomTitleTextAppearance">
+        <item name="android:textSize">23sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:windowBackground">@style/ThemeOverlay.AppCompat</item>
+    </style>
+
 </resources>
