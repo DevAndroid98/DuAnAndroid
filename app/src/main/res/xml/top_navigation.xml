@@ -3,18 +3,18 @@
     <tab
         id="@+id/tab_home"
         icon="@drawable/ic_home"
-        title="Home" />
+        title="Trang chủ" />
     <tab
         id="@+id/tab_cart"
         icon="@drawable/ic_cart"
-        title="Cart" />
+        title="Giỏ hàng" />
     <tab
         id="@+id/tab_notification"
         icon="@drawable/ic_notification"
-        title="Notification" />
+        title="Thông báo" />
     <tab
         id="@+id/tab_menu"
         icon="@drawable/ic_menu"
-        title="Menu" />
+        title="Tính năng" />
 
 </tabs>
