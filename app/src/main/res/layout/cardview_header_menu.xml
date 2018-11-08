@@ -4,15 +4,15 @@
     android:layout_height="100dp"
     android:layout_marginTop="2dp">
     <LinearLayout
-        android:padding="10dp"
+        android:padding="15dp"
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/ic_users"
-            android:layout_width="80dp"
-            android:layout_height="80dp" />
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
         <LinearLayout
             android:gravity="center"
             android:layout_marginLeft="20dp"
