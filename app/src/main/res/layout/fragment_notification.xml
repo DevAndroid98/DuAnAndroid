@@ -18,6 +18,10 @@
         <include layout="@layout/cardview_promotion" />
 
         <include layout="@layout/cardview_promotion" />
+        <include layout="@layout/cardview_promotion" />
+        <include layout="@layout/cardview_promotion" />
+        <include layout="@layout/cardview_promotion" />
+        <include layout="@layout/cardview_promotion" />
 
 
     </LinearLayout>

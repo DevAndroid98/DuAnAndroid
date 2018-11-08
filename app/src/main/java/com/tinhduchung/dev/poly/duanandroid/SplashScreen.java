@@ -124,7 +124,7 @@ public class SplashScreen extends BaseActivity {
                         numberProgressBar.setVisibility(View.VISIBLE);
                         numberProgressBar.setProgress(intI);
                         if (intI==100){
-                            startActivity(new Intent(SplashScreen.this,LoginActivity.class));
+                            startActivity(new Intent(SplashScreen.this,HomeActivity.class));
                             Bungee.zoom(context);
                             finish();
                         }

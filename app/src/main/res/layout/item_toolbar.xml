@@ -28,12 +28,12 @@
                 android:src="@drawable/ic_seach"/>
 
             <EditText
-                android:id="@+id/edtSearch"
+                android:focusable="false"
+                android:imeOptions="actionDone"
                 android:inputType="text"
-                android:imeOptions="actionGo"
+                android:id="@+id/edtSearch"
                 android:layout_margin="1dp"
                 android:text="@string/seach"
-                android:clickable="false"
                 android:textColor="@android:color/darker_gray"
                 android:backgroundTint="@color/white"
                 android:layout_alignParentRight="true"

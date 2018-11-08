@@ -8,8 +8,8 @@
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_create_account">Tạo tài khoản</string>
     <string name="ground">HDT Studio</string>
-    <string name="seach">Search</string>
-    <string name="seach_store">Search Online Store</string>
+    <string name="seach">Online Store</string>
+    <string name="seach_store">Tìm kiếm sản phẩm</string>
 
     <!--Create an Account-->
     <string name="name_user">Họ và tên: </string>
