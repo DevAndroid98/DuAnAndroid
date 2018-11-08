@@ -51,7 +51,8 @@
     <string name="information">Thông tin tài khoản</string>
     <string name="cart">Giỏ hàng</string>
     <string name="support">Trợ giúp</string>
-    <string name="logout">Đăng xuất</string>
+    <string name="logout">Thoát</string>
+    <string name="user_infor">Thông tin tài khoản</string>
 
 
 </resources>

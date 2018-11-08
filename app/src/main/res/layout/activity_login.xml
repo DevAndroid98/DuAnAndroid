@@ -54,7 +54,7 @@
               <LinearLayout
                   android:layout_marginLeft="30dp"
                   android:layout_marginRight="30dp"
-                  android:layout_marginBottom="30dp"
+                  android:layout_marginBottom="10dp"
                   android:layout_marginTop="20dp"
                   android:background="@drawable/style_edt"
                   android:layout_width="match_parent"
@@ -87,6 +87,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
+                  android:layout_marginBottom="20dp"
                   android:orientation="horizontal">
 
                   <ImageView
@@ -127,24 +128,24 @@
 
 
               <Button
+                  android:layout_gravity="center"
                   android:background="@drawable/style_edt"
-                  android:layout_width="match_parent"
+                  android:layout_width="250dp"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="30sp"
                   android:layout_marginRight="30dp"
                   android:layout_marginLeft="30dp"
                   android:text="@string/btn_login"
-                  android:textAllCaps="false"
                   android:textStyle="bold"
                   android:textColor="@color/greenPrimary"/>
               <Button
+                  android:layout_gravity="center"
                   android:background="@drawable/style_edt"
-                  android:layout_width="match_parent"
+                  android:layout_width="250dp"
                   android:layout_height="wrap_content"
                   android:layout_marginRight="30dp"
                   android:layout_marginLeft="30dp"
                   android:layout_marginTop="10dp"
-                  android:textAllCaps="false"
                   android:textStyle="bold"
                   android:textColor="@color/greenPrimary"
                   android:text="@string/btn_create_account"/>
