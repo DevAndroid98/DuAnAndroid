@@ -22,7 +22,6 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
-import com.tinhduchung.dev.poly.duanandroid.adapter.FragmentAdapter;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Cart;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Home;
