@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,13 +28,12 @@
                 android:src="@drawable/ic_seach"/>
 
             <EditText
-                android:focusable="false"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:id="@+id/edtSearch"
                 android:layout_margin="1dp"
-                android:text="@string/seach"
-                android:textColor="@android:color/darker_gray"
+                android:hint="@string/seach"
+                android:textColorHint="@android:color/darker_gray"
                 android:backgroundTint="@color/white"
                 android:layout_alignParentRight="true"
                 android:layout_toRightOf="@id/xx"
@@ -48,4 +47,4 @@
     
     
 
-</RelativeLayout>
+</LinearLayout>

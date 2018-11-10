@@ -4,6 +4,8 @@ import android.drm.DrmStore;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -36,8 +39,9 @@ public class HomeActivity extends BaseActivity {
     private BottomBarTab nearby1;
     private BottomBarTab nearby2;
     private BottomBarTab nearby3;
-    private Toolbar toolbar;
-
+    private CollapsingToolbarLayout lina;
+private AppBarLayout.LayoutParams params ;
+private CollapsingToolbarLayout collapsingToolbarLayout;
 
 
 
@@ -49,10 +53,12 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         edtSearch =  findViewById(R.id.edtSearch);
         fragment =  findViewById(R.id.viewpager);
-         //toolbar=findViewById(R.id.toolbar);
+         lina=findViewById(R.id.toolbar);
+         collapsingToolbarLayout=findViewById(R.id.cc);
         onclickView();
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+
+        BottomBar bottomBar =  findViewById(R.id.bottomBar);
          nearby = bottomBar.getTabWithId(R.id.tab_cart);
          nearby1 = bottomBar.getTabWithId(R.id.tab_home);
          nearby2 = bottomBar.getTabWithId(R.id.tab_menu);
@@ -61,7 +67,7 @@ public class HomeActivity extends BaseActivity {
         nearby2.setBadgeCount(60);
         nearby3.setBadgeCount(1);
 
-
+        params = (AppBarLayout.LayoutParams)collapsingToolbarLayout.getLayoutParams();
          bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
              @Override
              public void onTabSelected(int tabId) {
@@ -101,19 +107,30 @@ public class HomeActivity extends BaseActivity {
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.viewpager,
                         new Fragment_Home()).commit();
+                lina.setVisibility(View.VISIBLE);
+
                 break;
             case R.id.tab_cart:
                 getSupportFragmentManager().beginTransaction().replace(R.id.viewpager,
                         new Fragment_Cart()).commit();
-
+                lina.setVisibility(View.GONE);
+                params.setScrollFlags(0);
+                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
+                        );
                 break;
             case R.id.tab_menu:
                 getSupportFragmentManager().beginTransaction().replace(R.id.viewpager,
                         new Fragment_Menu()).commit();
+                lina.setVisibility(View.GONE);
+                params.setScrollFlags(0);
+                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
+                        );
                 break;
             case R.id.tab_notification:
                 getSupportFragmentManager().beginTransaction().replace(R.id.viewpager,
                         new Fragment_Notification()).commit();
+                lina.setVisibility(View.GONE);
+                params.setScrollFlags(0);
                 break;
 
 
