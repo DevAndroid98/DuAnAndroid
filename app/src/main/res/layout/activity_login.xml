@@ -158,13 +158,15 @@
                   android:layout_height="wrap_content"
                   android:text="@string/title_login_facebook"
                   android:gravity="center"/>
-              <ImageView
-                  android:id="@+id/btnFacebook"
+
+              <com.facebook.login.widget.LoginButton
+                  android:id="@+id/login_button"
                   android:layout_width="wrap_content"
+
+                  android:layout_gravity="center_horizontal"
                   android:layout_height="70dp"
-                  android:layout_marginTop="5dp"
-                  android:src="@drawable/icons8_facebook_480"
-                  android:layout_gravity="center"/>
+                  android:layout_marginTop="5dp"/>
+
           </LinearLayout>
 
           <LinearLayout

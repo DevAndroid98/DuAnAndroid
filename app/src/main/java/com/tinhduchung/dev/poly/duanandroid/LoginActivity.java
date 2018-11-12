@@ -1,10 +1,12 @@
 package com.tinhduchung.dev.poly.duanandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,43 +17,64 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
 
-import io.rmiri.buttonloading.ButtonLoading;
-import spencerstudios.com.bungeelib.Bungee;
 
 public class LoginActivity extends BaseActivity {
-
-
-
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        txtPass =  findViewById(R.id.txtPass);
-        imgPreview = findViewById(R.id.imgPreview);
-        imgDeletetext =findViewById(R.id.imgDeletetext);
-        RunAble runAble=new RunAble(1,this);
-        new Thread(runAble).start();
-        TextView textGround=findViewById(R.id.txtGround);
-        textGround.setTypeface(Typeface.createFromAsset(getAssets(),"font_1.ttf"));
+        mapped();
+        method();
+        onclick();
 
+
+
+
+
+    }
+
+    //Ánh xạ
+    private void mapped() {
+        txtPass = findViewById(R.id.txtPass);
+        imgPreview = findViewById(R.id.imgPreview);
+        imgDeletetext = findViewById(R.id.imgDeletetext);
+        loginButton = findViewById(R.id.login_button);
+        callbackManager = CallbackManager.Factory.create();
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    //Các sự kiện onClick
+    private void onclick() {
         imgPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (xxx==false){
+                if (xxx == false) {
                     txtPass.setInputType(InputType.TYPE_CLASS_TEXT);
                     imgPreview.setImageResource(R.drawable.ic_preview);
-                    xxx=true;
-                }else {
-                    txtPass.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    xxx = true;
+                } else {
+                    txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     imgPreview.setImageResource(R.drawable.ic_unpreview);
-                    xxx=false;
+                    xxx = false;
                 }
             }
         });
@@ -62,6 +85,43 @@ public class LoginActivity extends BaseActivity {
                 txtPass.setText("");
             }
         });
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+
+
+        });
+    }
+
+    private void method() {
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser != null) {
+
+                } else {
+
+                }
+            }
+        };
+
+        RunAble runAble = new RunAble(1, this);
+        new Thread(runAble).start();
+        TextView textGround = findViewById(R.id.txtGround);
+        textGround.setTypeface(Typeface.createFromAsset(getAssets(), "font_1.ttf"));
     }
 
     @Override
@@ -86,28 +146,28 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void run() {
-            for (int i = 0; i <=1; i++) {
+            for (int i = 0; i <= 1; i++) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 final int intI = i;
                 handler.post(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void run() {
-                        if (intI==1){
+                        if (intI == 1) {
 
-                            if (!txtPass.getText().toString().trim().equals("")){
+                            if (!txtPass.getText().toString().trim().equals("")) {
                                 imgPreview.setVisibility(View.VISIBLE);
                                 imgDeletetext.setVisibility(View.VISIBLE);
-                                Log.e("A","Tình");
 
-                            }else {
+
+                            } else {
                                 imgPreview.setVisibility(View.INVISIBLE);
                                 imgDeletetext.setVisibility(View.INVISIBLE);
-                                Log.e("A","Đức");
-                                txtPass.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+                                txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                             }
 
-                            RunAble runAble=new RunAble(1,LoginActivity.this);
+                            RunAble runAble = new RunAble(1, LoginActivity.this);
                             new Thread(runAble).start();
 
                         }
@@ -126,5 +186,38 @@ public class LoginActivity extends BaseActivity {
 
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d("TAG", "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("TAG", "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d("TAG", user.getUid());
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("TAG", "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        // ...
+                    }
+                });
     }
 }

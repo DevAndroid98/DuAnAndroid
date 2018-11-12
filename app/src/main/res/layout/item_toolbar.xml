@@ -7,7 +7,7 @@
     
     <android.support.v7.widget.CardView
         android:id="@+id/xxx"
-        app:cardCornerRadius="2dp"
+        app:cardCornerRadius="3dp"
         app:cardElevation="3dp"
         android:elevation="3dp"
         android:layout_margin="7dp"
@@ -15,7 +15,6 @@
         android:layout_height="match_parent">
         
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
@@ -27,7 +26,7 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_seach"/>
 
-            <EditText
+            <TextView
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:id="@+id/edtSearch"

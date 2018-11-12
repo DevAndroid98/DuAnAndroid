@@ -54,8 +54,10 @@
     <string name="logout">Thoát</string>
     <string name="user_infor">Thông tin tài khoản</string>
 
-    <string name="facebook_app_id">580739719011789</string>
-    <string name="fb_login_protocol_scheme">fb580739719011789</string>
+
+    <string name="facebook_app_id">1821945707916485</string>
+    <string name="fb_login_protocol_scheme">fb1821945707916485</string>
+
 
 
 
