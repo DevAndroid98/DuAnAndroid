@@ -11,28 +11,32 @@
         android:background="@color/greenPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/imgUser"
             android:src="@drawable/ic_users"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             app:civ_border="false"
             />
+        <TextView
+            android:textColor="@color/white"
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        </LinearLayout>
+
         <RelativeLayout
 
             android:layout_marginLeft="20dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:textColor="@color/greenPrimary"
-                android:id="@+id/txtUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
             <Button
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
