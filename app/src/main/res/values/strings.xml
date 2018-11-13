@@ -47,6 +47,11 @@
     <string name="price">Giá</string>
     <string name="company_name">Tên công ty</string>
 
+    <string name="count">Tổng cộng:</string>
+    <string name="money">0đ</string>
+    <string name="except">Xác nhận</string>
+
+
     <!--nav_menu-->
     <string name="information">Thông tin tài khoản</string>
     <string name="cart">Giỏ hàng</string>
@@ -58,6 +63,7 @@
     <string name="facebook_app_id">1821945707916485</string>
     <string name="fb_login_protocol_scheme">fb1821945707916485</string>
     <string name="logoutfb">Đăng xuất</string>
+
 
 
 </resources>

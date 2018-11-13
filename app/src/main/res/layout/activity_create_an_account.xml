@@ -106,7 +106,7 @@
 
     <Button
         android:background="@drawable/style_edt"
-        android:id="@+id/btnDangky"
+        android:id="@+id/btnSignup"
         android:textColor="@color/greenPrimary"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
