@@ -57,8 +57,7 @@
 
     <string name="facebook_app_id">1821945707916485</string>
     <string name="fb_login_protocol_scheme">fb1821945707916485</string>
-
-
+    <string name="logoutfb">Đăng xuất</string>
 
 
 </resources>

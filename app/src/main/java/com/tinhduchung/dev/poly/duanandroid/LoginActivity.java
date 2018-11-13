@@ -33,6 +33,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
+import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Menu;
 
 
 public class LoginActivity extends BaseActivity {
@@ -60,6 +61,8 @@ public class LoginActivity extends BaseActivity {
         loginButton = findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
+        sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
+
     }
 
     //Các sự kiện onClick
@@ -109,10 +112,16 @@ public class LoginActivity extends BaseActivity {
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser != null) {
-
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                        Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                        intent.putExtra("name",user.getDisplayName());
+                        intent.putExtra("uri",String.valueOf(user.getPhotoUrl()));
+                        intent.putExtra("id",user.getUid());
+                        startActivity(intent);
+                         finish();
                 } else {
+
 
                 }
             }
@@ -219,5 +228,11 @@ public class LoginActivity extends BaseActivity {
                         // ...
                     }
                 });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authStateListener);
     }
 }
