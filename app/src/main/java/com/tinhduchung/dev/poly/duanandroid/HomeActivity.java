@@ -32,6 +32,20 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bungee.zoom(this);
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.tinhduchung.dev.poly.duanandroid",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
         mapped();
         onclickView();
         notification();
@@ -45,6 +59,7 @@ public class HomeActivity extends BaseActivity {
         nearby1 = bottomBar.getTabWithId(R.id.tab_home);
         nearby2 = bottomBar.getTabWithId(R.id.tab_menu);
         nearby3 = bottomBar.getTabWithId(R.id.tab_notification);
+        nestedScrollView=findViewById(R.id.layoutNestedScrollView);
     }
 
     //các sự kiện click

@@ -48,8 +48,9 @@ public class Fragment_Menu extends BaseFragment {
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                   // startActivity(new Intent(getActivity(), LoginActivity.class));
                    // getActivity().finish();
+
                 }
             });
         }else {

@@ -18,7 +18,8 @@
           android:layout_height="60dp"
           app:layout_scrollFlags="exitUntilCollapsed|scroll"
           app:contentScrim="?attr/colorPrimary"
-          ><include layout="@layout/item_toolbar"
+          >
+          <include layout="@layout/item_toolbar"
               />
       </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -56,10 +57,14 @@
 
 
 
-
-    <RelativeLayout
-
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/layoutNestedScrollView"
+        android:scrollbars="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+       <RelativeLayout
+           app:layout_behavior="@string/appbar_scrolling_view_behavior"
            android:layout_width="match_parent"
            android:layout_height="match_parent">
            <FrameLayout
@@ -69,7 +74,7 @@
                >
            </FrameLayout>
        </RelativeLayout>
-
+    </android.support.v4.widget.NestedScrollView>
 
 
 
