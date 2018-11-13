@@ -45,10 +45,10 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:hint="@string/Name_user"
-            android:inputType=""
+            android:inputType="text"
+            android:imeOptions="actionNext"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            tools:targetApi="o" />
+            android:textColorHint="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,6 +64,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/phone"
             android:inputType="phone"
+            android:imeOptions="actionNext"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
@@ -80,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
+            android:imeOptions="actionNext"
             android:hint="@string/Password"
             android:inputType="textPassword"
             android:textColor="@color/white"
@@ -98,6 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
+            android:imeOptions="actionDone"
             android:hint="@string/Confirm_password"
             android:inputType="textPassword"
             android:textColor="@color/white"

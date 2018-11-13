@@ -139,6 +139,7 @@
                   android:textStyle="bold"
                   android:textColor="@color/greenPrimary"/>
               <Button
+                  android:id="@+id/btn_create_account"
                   android:layout_gravity="center"
                   android:background="@drawable/style_edt"
                   android:layout_width="250dp"

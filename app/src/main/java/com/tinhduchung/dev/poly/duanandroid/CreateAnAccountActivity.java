@@ -10,6 +10,7 @@ public class CreateAnAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_an_account);
 
-
+        getSupportActionBar().setTitle(getString(R.string.btn_signup));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
