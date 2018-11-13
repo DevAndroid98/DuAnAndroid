@@ -8,6 +8,7 @@
         android:padding="15dp"
         android:layout_gravity="center"
         android:orientation="horizontal"
+        android:background="@color/greenPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -38,10 +39,10 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/style_button_dangnhap"
+                android:background="@drawable/style_edt"
                 android:text="Đăng Nhập"
                 android:layout_marginLeft="30dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/greenPrimary" />
 
         </RelativeLayout>
     </LinearLayout>
