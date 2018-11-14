@@ -35,7 +35,7 @@ public class HomeActivity extends BaseActivity {
         mapped();
         onclickView();
         notification();
-        }
+    }
 
     //ánh xạ view
     private void mapped() {
