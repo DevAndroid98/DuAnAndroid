@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Menu;
 
 
 public class LoginActivity extends BaseActivity {
-
+    private Button btn_create_account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +48,6 @@ public class LoginActivity extends BaseActivity {
         method();
         onclick();
 
-
-
-
-
     }
 
     //Ánh xạ
@@ -59,6 +56,7 @@ public class LoginActivity extends BaseActivity {
         imgPreview = findViewById(R.id.imgPreview);
         imgDeletetext = findViewById(R.id.imgDeletetext);
         loginButton = findViewById(R.id.login_button);
+        btn_create_account = findViewById(R.id.btn_create_account);
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
         sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
@@ -105,6 +103,12 @@ public class LoginActivity extends BaseActivity {
             }
 
 
+        });
+        btn_create_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, CreateAnAccountActivity.class));
+            }
         });
     }
 

@@ -15,6 +15,12 @@
         <item name="android:windowBackground">@drawable/splashscreen</item>
     </style>
 
+    <style name="Create" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/greenPrimary</item>
+        <item name="colorPrimaryDark">@color/greenDark</item>
+        <item name="colorAccent">@color/greenLight</item>
+    </style>
+
 
 
     <style name="ProgressBar">
