@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
 
 import spencerstudios.com.bungeelib.Bungee;
@@ -124,8 +126,17 @@ public class SplashScreen extends BaseActivity {
                         numberProgressBar.setVisibility(View.VISIBLE);
                         numberProgressBar.setProgress(intI);
                         if (intI==100){
-                            startActivity(new Intent(SplashScreen.this,HomeActivity.class));
+                            if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+                                Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                                startActivity(intent);
+                                Log.e("KT","KT");
+                            }else {
+                                Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+                                startActivity(intent);
+                                Log.e("T","T");
+                            }
                             Bungee.zoom(context);
+
                             finish();
                         }
                     }
@@ -142,6 +153,13 @@ public class SplashScreen extends BaseActivity {
 
 
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
     }
 
     @Override

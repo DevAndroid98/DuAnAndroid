@@ -64,7 +64,15 @@
     <string name="facebook_app_id">1821945707916485</string>
     <string name="fb_login_protocol_scheme">fb1821945707916485</string>
     <string name="logoutfb">Đăng xuất</string>
-
+    <string name="send">Gửi mã?</string>
+    <string name="enter_code">Mời bạn nhập</string>
+    <string name="enter_codeid">Mã gồm 6 kí tự</string>
+    <string name="infor">Thêm thông tin</string>
+    <string name="photo">Chọn ảnh</string>
+    <string name="error">Vui lòng nhập</string>
+    <string name="error_1">Bắt đầu là +84 hoặc 0</string>
+    <string name="error_2">Gồm 10 hoặc 11 kí tự</string>
+    <string name="updateimg">Đang tải ảnh lên</string>
 
 
 </resources>

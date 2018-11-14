@@ -10,6 +10,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,6 +59,11 @@ public class BaseActivity extends AppCompatActivity {
     public FirebaseAuth.AuthStateListener authStateListener;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
+    public EditText edtphone;
+    public Button btnlogin;
+    public String idcode;
+
+
 
 
 }

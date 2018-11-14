@@ -59,7 +59,7 @@ public class HomeActivity extends BaseActivity {
         nearby1 = bottomBar.getTabWithId(R.id.tab_home);
         nearby2 = bottomBar.getTabWithId(R.id.tab_menu);
         nearby3 = bottomBar.getTabWithId(R.id.tab_notification);
-        nestedScrollView=findViewById(R.id.layoutNestedScrollView);
+
     }
 
     //các sự kiện click

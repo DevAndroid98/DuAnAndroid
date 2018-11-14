@@ -1,5 +1,6 @@
 package com.tinhduchung.dev.poly.duanandroid;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,10 +14,15 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,17 +34,27 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Menu;
 
+import java.util.concurrent.TimeUnit;
+
+import pl.droidsonroids.gif.GifImageView;
+
 
 public class LoginActivity extends BaseActivity {
-    private Button btn_create_account;
+    public EditText code;
+public GifImageView loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,44 +64,25 @@ public class LoginActivity extends BaseActivity {
         method();
         onclick();
 
+
     }
 
     //Ánh xạ
     private void mapped() {
-        txtPass = findViewById(R.id.txtPass);
-        imgPreview = findViewById(R.id.imgPreview);
-        imgDeletetext = findViewById(R.id.imgDeletetext);
         loginButton = findViewById(R.id.login_button);
-        btn_create_account = findViewById(R.id.btn_create_account);
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
-        sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Data", MODE_PRIVATE);
+
+        edtphone = findViewById(R.id.edtphone);
+        btnlogin = findViewById(R.id.btnlogin);
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
     //Các sự kiện onClick
     private void onclick() {
-        imgPreview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (xxx == false) {
-                    txtPass.setInputType(InputType.TYPE_CLASS_TEXT);
-                    imgPreview.setImageResource(R.drawable.ic_preview);
-                    xxx = true;
-                } else {
-                    txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    imgPreview.setImageResource(R.drawable.ic_unpreview);
-                    xxx = false;
-                }
-            }
-        });
 
-        imgDeletetext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txtPass.setText("");
-            }
-        });
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -104,12 +101,54 @@ public class LoginActivity extends BaseActivity {
 
 
         });
-        btn_create_account.setOnClickListener(new View.OnClickListener() {
+
+        btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, CreateAnAccountActivity.class));
+            public void onClick(View v) {
+                final String phone=edtphone.getText().toString().trim();
+                if (phone.equals("")) {
+                    return;
+                } else {
+                    sendCode(phone);
+                    Dialog dialog = dialog(R.layout.codephone, WindowManager.LayoutParams.WRAP_CONTENT);
+                    Button xacnhan;
+                    TextView textView=dialog.findViewById(R.id.txtsend);
+
+                    code = dialog.findViewById(R.id.code);
+                    xacnhan = dialog.findViewById(R.id.xacnhan);
+                    loading = dialog.findViewById(R.id.loading);
+                    xacnhan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String codeid = code.getText().toString();
+                            if (codeid.equals("")) {
+                                code.setError(getString(R.string.enter_code));
+                                code.requestFocus();
+                                return;
+                            }
+                            if (codeid.length()!=6){
+                                code.setError(getString(R.string.enter_codeid));
+                                code.requestFocus();
+                                return;
+                            }
+                               loading.setVisibility(View.VISIBLE);
+                               verityCode(codeid);
+
+
+
+                        }
+                    });
+                    textView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                           sendCode(phone);
+                        }
+                    });
+                    dialog.show();
+                }
             }
         });
+
     }
 
     private void method() {
@@ -118,24 +157,33 @@ public class LoginActivity extends BaseActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                        Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
-                        intent.putExtra("name",user.getDisplayName());
-                        intent.putExtra("uri",String.valueOf(user.getPhotoUrl()));
-                        intent.putExtra("id",user.getUid());
+                    Log.e("TAG",user.getProviders().get(0));
+                    if (user.getProviders().get(0).equals("facebook.com")) {
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("name", user.getDisplayName());
+                        intent.putExtra("uri", String.valueOf(user.getPhotoUrl()));
+                        intent.putExtra("id", user.getUid());
+                        intent.putExtra("provider",user.getProviders().get(0));
                         startActivity(intent);
-                         finish();
+                        Log.e("Tinh","A");
+                        finish();
+                    }else{
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("provider",user.getProviders().get(0));
+                        intent.putExtra("id", user.getUid());
+                        intent.putExtra("phone",user.getPhoneNumber());
+                        startActivity(intent);
+                        Log.e("Tinh","B");
+                        finish();
+                    }
                 } else {
-
 
 
                 }
             }
         };
 
-        RunAble runAble = new RunAble(1, this);
-        new Thread(runAble).start();
-        TextView textGround = findViewById(R.id.txtGround);
-        textGround.setTypeface(Typeface.createFromAsset(getAssets(), "font_1.ttf"));
+
     }
 
     @Override
@@ -149,58 +197,6 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    public class RunAble implements Runnable {
-        int seconds;
-        Context context;
-
-        public RunAble(int seconds, Context context) {
-            this.seconds = seconds;
-            this.context = context;
-        }
-
-        @Override
-        public void run() {
-            for (int i = 0; i <= 1; i++) {
-                Handler handler = new Handler(Looper.getMainLooper());
-                final int intI = i;
-                handler.post(new Runnable() {
-                    @RequiresApi(api = Build.VERSION_CODES.M)
-                    @Override
-                    public void run() {
-                        if (intI == 1) {
-
-                            if (!txtPass.getText().toString().trim().equals("")) {
-                                imgPreview.setVisibility(View.VISIBLE);
-                                imgDeletetext.setVisibility(View.VISIBLE);
-
-
-                            } else {
-                                imgPreview.setVisibility(View.INVISIBLE);
-                                imgDeletetext.setVisibility(View.INVISIBLE);
-
-                                txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                            }
-
-                            RunAble runAble = new RunAble(1, LoginActivity.this);
-                            new Thread(runAble).start();
-
-                        }
-
-                    }
-
-                });
-
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -237,7 +233,89 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onStart() {
-        super.onStart();
         mAuth.addAuthStateListener(authStateListener);
+        super.onStart();
+
+
     }
+
+    public Dialog dialog(int layoutid, int height) {
+        android.app.Dialog dialog = new android.app.Dialog(this, R.style.CustomDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutid);
+        dialog.setCanceledOnTouchOutside(false);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        wlp.windowAnimations = R.anim.anim1;
+        wlp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        wlp.height = height;
+        window.setAttributes(wlp);
+
+        return dialog;
+
+    }
+
+
+    private void sendCode(String phoneNumber) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+84" + phoneNumber,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks);        // OnVerificationStateChangedCallbacks
+    }
+
+    private void verityCode(String code) {
+        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(idcode, code);
+        signInWithPhoneAuthCredential(phoneAuthCredential);
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential phoneAuthCredential) {
+        mAuth.signInWithCredential(phoneAuthCredential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            Log.d("TAG", "signInWithCredential:success");
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = task.getResult().getUser();
+
+                            // ...
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                            loading.setVisibility(View.INVISIBLE);
+                            Log.w("TAG", "signInWithCredential:failure", task.getException());
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+
+                            }
+                        }
+                    }
+                });
+    }
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            idcode = s;
+        }
+
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            String codeid = phoneAuthCredential.getSmsCode();
+            if (codeid != null) {
+                code.setText(codeid);
+                loading.setVisibility(View.VISIBLE);
+                verityCode(codeid);
+            }
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+
+        }
+    };
 }
