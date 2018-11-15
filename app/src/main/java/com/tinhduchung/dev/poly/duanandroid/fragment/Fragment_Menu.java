@@ -7,9 +7,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,9 +162,7 @@ public class Fragment_Menu extends BaseFragment {
 
                     }
                 });
-                if (name==null && uri==null){
-                    dialog();
-                }
+                  new Thread(new RunAble1(1,getActivity())).start();
 
             }
 
@@ -333,5 +335,47 @@ public class Fragment_Menu extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public class RunAble1 implements Runnable {
+        int seconds;
+        Context context;
+
+        public RunAble1(int seconds, Context context) {
+            this.seconds = seconds;
+            this.context = context;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i <=5; i++) {
+                Handler handler = new Handler(Looper.getMainLooper());
+                final int intI = i;
+                handler.post(new Runnable() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void run() {
+                        if (intI==5){
+                            if (name==null&&name==null){
+                                   dialog();
+                            }else {
+                                Toast.makeText(getActivity(),"No Null",Toast.LENGTH_LONG);
+                            }
+                        }
+
+                    }
+
+                });
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+        }
     }
 }

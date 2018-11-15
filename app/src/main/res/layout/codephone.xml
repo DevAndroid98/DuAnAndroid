@@ -16,7 +16,8 @@
         android:textSize="18sp"
         android:layout_gravity="center_horizontal"/>
    <EditText
-
+       android:imeOptions="actionDone"
+       android:inputType="phone"
        android:textColor="@color/greenPrimary"
        android:textStyle="bold"
        android:layout_marginTop="10dp"

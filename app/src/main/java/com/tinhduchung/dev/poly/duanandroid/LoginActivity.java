@@ -87,6 +87,7 @@ public GifImageView loading;
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                finish();
             }
 
             @Override
