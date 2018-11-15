@@ -74,5 +74,23 @@
     <string name="error_2">Gồm 10 hoặc 11 kí tự</string>
     <string name="updateimg">Đang tải ảnh lên</string>
 
+    <!--accout information-->
+    <string name="address">Địa chỉ:</string>
+    <string name="add_address">Nhập địa chỉ</string>
+    <string name="gender">Giới tính:</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="add_mail">Nhập email</string>
+    <string name="save">Lưu</string>
 
+    <!--add product-->
+    <string name="add_name_shop">Nhập tên shop</string>
+    <string name="add_name_product">Nhập tên sản phẩm</string>
+    <string name="add_price">Nhập giá sản phẩm</string>
+    <string name="add_amount">Nhập số lượng</string>
+    <string name="add_describe">Nhập mô tả</string>
+    <string name="add_color">Chọn màu</string>
+    <string name="add_aspect">Chọn tình trạng</string>
+    <string name="add_status">Chọn trạng thái</string>
+    <string name="post">Đăng</string>
 </resources>

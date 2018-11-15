@@ -78,7 +78,7 @@
         android:background="@drawable/style_edt"
         android:id="@+id/btnSignup"
         android:textColor="@color/greenPrimary"
-        android:layout_width="350dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"

@@ -17,25 +17,24 @@
 
         <activity
             android:name=".HomeActivity"
-            android:screenOrientation="portrait">
-
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen"
-            android:theme="@style/SplashScreen"> <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-
-
-        <activity android:name=".LoginActivity">
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".CreateAnAccountActivity"
-            android:theme="@style/Create"
-            android:parentActivityName=".LoginActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".CreateAnAccountActivity"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/Create" />
+        <activity android:name=".SupportActivity" />
+        <activity android:name=".AccountInformationActivity" />
+        <activity android:name=".AddProductActivity"></activity>
     </application>
 
 </manifest>
