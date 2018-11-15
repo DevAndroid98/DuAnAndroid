@@ -7,13 +7,13 @@
     android:orientation="vertical"
     tools:context=".AccountInformationActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:background="@color/greenPrimary"
         android:padding="10dp"
-        android:src="@drawable/ic_userw" />
+        android:src="@drawable/ic_user_green" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,12 +44,8 @@
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,7 +72,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:imeOptions="actionNext" />
-            </LinearLayout>
         </RadioGroup>
 
         <TextView
