@@ -108,9 +108,22 @@ public GifImageView loading;
             public void onClick(View v) {
                 final String phone=edtphone.getText().toString().trim();
                 if (phone.equals("")) {
+                    edtphone.setError(getString(R.string.error));
+                    edtphone.requestFocus();
                     return;
-                } else {
-                    sendCode(phone);
+                }
+                if (!phone.startsWith("+84") && !phone.startsWith("0")) {
+                    edtphone.setError(getString(R.string.error_1));
+                    edtphone.requestFocus();
+                    return;
+                }
+                if (phone.length() != 10 && phone.length() != 12) {
+                    edtphone.setError(getString(R.string.error_2));
+                    edtphone.requestFocus();
+                    return;
+                }
+
+                sendCode(phone);
                     Dialog dialog = dialog(R.layout.codephone, WindowManager.LayoutParams.WRAP_CONTENT);
                     Button xacnhan;
                     TextView textView=dialog.findViewById(R.id.txtsend);
@@ -147,7 +160,7 @@ public GifImageView loading;
                     });
                     dialog.show();
                 }
-            }
+
         });
 
     }
@@ -166,7 +179,6 @@ public GifImageView loading;
                         intent.putExtra("id", user.getUid());
                         intent.putExtra("provider",user.getProviders().get(0));
                         startActivity(intent);
-                        Log.e("Tinh","A");
                         finish();
                     }else{
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -234,8 +246,8 @@ public GifImageView loading;
 
     @Override
     protected void onStart() {
-        mAuth.addAuthStateListener(authStateListener);
         super.onStart();
+        mAuth.addAuthStateListener(authStateListener);
 
 
     }
@@ -252,7 +264,6 @@ public GifImageView loading;
         wlp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         wlp.height = height;
         window.setAttributes(wlp);
-
         return dialog;
 
     }
@@ -268,8 +279,14 @@ public GifImageView loading;
     }
 
     private void verityCode(String code) {
-        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(idcode, code);
-        signInWithPhoneAuthCredential(phoneAuthCredential);
+        if (idcode!=null){
+            PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(idcode, code);
+            signInWithPhoneAuthCredential(phoneAuthCredential);
+        }else {
+            loading.setVisibility(View.INVISIBLE);
+            Toast.makeText(this, "Mã xác nhận chưa hợp lệ", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential phoneAuthCredential) {
@@ -282,6 +299,7 @@ public GifImageView loading;
                             Log.d("TAG", "signInWithCredential:success");
                             Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = task.getResult().getUser();
+                            finish();
 
                             // ...
                         } else {

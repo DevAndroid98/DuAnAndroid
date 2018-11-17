@@ -43,6 +43,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
+import com.tinhduchung.dev.poly.duanandroid.AccountInformationActivity;
 import com.tinhduchung.dev.poly.duanandroid.HomeActivity;
 import com.tinhduchung.dev.poly.duanandroid.LoginActivity;
 import com.tinhduchung.dev.poly.duanandroid.R;
@@ -64,6 +65,9 @@ public class Fragment_Menu extends BaseFragment {
     String provice ="";
     String phone = "";
     String id = "";
+    String email="";
+    String address="";
+    String gender="";
     private  Dialog dialog;
     private DatabaseReference mDatabase;
 
@@ -91,6 +95,10 @@ public class Fragment_Menu extends BaseFragment {
 
         if (provice == null) {
             btnLogin.setVisibility(View.VISIBLE);
+            cvAddProduct.setAlpha(0.5f);
+            cvAddProduct.setClickable(false);
+            cvUserinfor.setAlpha(0.5f);
+            cvUserinfor.setClickable(false);
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,7 +108,61 @@ public class Fragment_Menu extends BaseFragment {
                 }
             });
         } else {
+            cvAddProduct.setAlpha(1);
+            cvUserinfor.setAlpha(1);
+            cvUserinfor.setClickable(true);
+            cvAddProduct.setClickable(true);
             if (provice.equals("facebook.com")) {
+                mDatabase.child(id).child("info").addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        User user=dataSnapshot.getValue(User.class);
+                        name=user.getName();
+                        uri=user.getUri();
+                        gender=user.getGender();
+                        address=user.getAddress();
+                        email=user.getEmail();
+                        phone=user.getPhone();
+                        txtUsername.setText(name);
+                        Picasso.get().load(Uri.parse(uri)).resize(50, 50).centerCrop().into(imgUser);
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                cvUserinfor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(new Intent(getActivity(), AccountInformationActivity.class));
+                        intent.putExtra("name", name);
+                        intent.putExtra("uri", uri);
+                        intent.putExtra("id", id);
+                        intent.putExtra("phone",phone);
+                        intent.putExtra("address",address);
+                        intent.putExtra("email",email);
+                        intent.putExtra("gender",gender);
+                        intent.putExtra("provider",provice);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
                 btnLogin.setText(R.string.logoutfb);
                 btnLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -118,12 +180,17 @@ public class Fragment_Menu extends BaseFragment {
                 txtUsername.setText(name);
             } else {
 
-                mDatabase.child(id).addChildEventListener(new ChildEventListener() {
+
+                mDatabase.child(id).child("info").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         User user=dataSnapshot.getValue(User.class);
                              name=user.getName();
                              uri=user.getUri();
+                             gender=user.getGender();
+                             address=user.getAddress();
+                             email=user.getEmail();
+                             phone=user.getPhone();
                             txtUsername.setText(name);
                             Picasso.get().load(Uri.parse(uri)).resize(50, 50).centerCrop().into(imgUser);
                             }
@@ -146,6 +213,21 @@ public class Fragment_Menu extends BaseFragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                    }
+                });
+                cvUserinfor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(new Intent(getActivity(), AccountInformationActivity.class));
+                        intent.putExtra("name", name);
+                        intent.putExtra("phone",phone);
+                        intent.putExtra("uri", uri);
+                        intent.putExtra("id", id);
+                        intent.putExtra("provider",provice);
+                        intent.putExtra("address",address);
+                        intent.putExtra("email",email);
+                        intent.putExtra("gender",gender);
+                        startActivity(intent);
                     }
                 });
                 btnLogin.setText(R.string.logoutfb);
@@ -177,6 +259,11 @@ public class Fragment_Menu extends BaseFragment {
         imgUser = view.findViewById(R.id.imgUser);
         txtUsername = view.findViewById(R.id.txtUsername);
         btnLogin = view.findViewById(R.id.btnLogin);
+        cvUserinfor = view.findViewById(R.id.cvUserinfor);
+        cvCart =  view.findViewById(R.id.cvCart);
+        cvAddProduct = view.findViewById(R.id.cvAddProduct);
+        cvHelp =  view.findViewById(R.id.cvHelp);
+        cvQuit = view.findViewById(R.id.cvQuit);
     }
 
     public void dialog() {
@@ -225,10 +312,11 @@ public class Fragment_Menu extends BaseFragment {
                     Toast.makeText(getActivity(), "Chọn ảnh", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                User user = new User(name1, phone, uri);
+                User user = new User(name1, phone, uri,"","","");
                 loading.setVisibility(View.VISIBLE);
+                name=name1;
                 linearLayout.setAlpha(0.3f);
-                mDatabase.child(id).child("info").setValue(user)
+                mDatabase.child(id).child("info").child("info").setValue(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -238,10 +326,13 @@ public class Fragment_Menu extends BaseFragment {
                                     @Override
                                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                                         User user1 = dataSnapshot.getValue(User.class);
-                                        uri = user1.getUri();
-                                        name = user1.getName();
+                                       // uri = user1.getUri();
+                                        //name = user1.getName();
                                         txtUsername.setText(name);
-                                        Picasso.get().load(Uri.parse(uri)).resize(50, 50).centerCrop().into(imgUser);
+                                        new Thread(new RunAble1(1,getActivity())).start();
+                                        if (uri!=null){
+                                            Picasso.get().load(Uri.parse(uri)).resize(50, 50).centerCrop().into(imgUser);
+                                        }
                                     }
 
                                     @Override
@@ -348,19 +439,30 @@ public class Fragment_Menu extends BaseFragment {
 
         @Override
         public void run() {
-            for (int i = 0; i <=5; i++) {
+            for (int i = 0; i <=2; i++) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 final int intI = i;
                 handler.post(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void run() {
-                        if (intI==5){
+                        if (intI==2){
                             if (name==null&&name==null){
                                    dialog();
+                                   cvAddProduct.setAlpha(0.5f);
+                                   cvAddProduct.setClickable(false);
+                                   cvUserinfor.setAlpha(0.5f);
+                                   cvUserinfor.setClickable(false);
+                                   Bungee.zoom(context);
+
                             }else {
-                                Toast.makeText(getActivity(),"No Null",Toast.LENGTH_LONG);
+                                cvAddProduct.setAlpha(1);
+                                cvAddProduct.setClickable(true);
+                                cvUserinfor.setAlpha(1);
+                                cvUserinfor.setClickable(true);
+
                             }
+
                         }
 
                     }

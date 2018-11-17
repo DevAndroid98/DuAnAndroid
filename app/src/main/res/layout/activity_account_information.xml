@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     tools:context=".AccountInformationActivity">
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:src="@drawable/loading_gif"/>
+<LinearLayout
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
 
     <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/imginfo"
+        app:civ_border="false"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:background="@color/greenPrimary"
         android:padding="10dp"
         android:src="@drawable/ic_user_green" />
 
@@ -22,6 +36,7 @@
         android:padding="10dp">
 
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -29,6 +44,9 @@
             android:textColor="@color/greenPrimary" />
 
         <EditText
+            android:inputType="text"
+
+            android:id="@+id/edtnameinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/greenPrimary"
@@ -55,6 +73,7 @@
                     android:textColor="@color/greenPrimary" />
 
                 <RadioButton
+                    android:id="@+id/rdman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -68,6 +87,7 @@
                     android:textColor="@color/greenPrimary" />
 
                 <RadioButton
+                    android:id="@+id/rdwomen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -82,6 +102,8 @@
             android:textColor="@color/greenPrimary" />
 
         <EditText
+            android:inputType="text"
+            android:id="@+id/edtaddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/greenPrimary"
@@ -96,6 +118,8 @@
             android:textColor="@color/greenPrimary" />
 
         <EditText
+            android:inputType="phone"
+            android:id="@+id/edtphoneinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/greenPrimary"
@@ -110,6 +134,8 @@
             android:textColor="@color/greenPrimary" />
 
         <EditText
+            android:inputType="textEmailAddress"
+            android:id="@+id/edtemailinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/greenPrimary"
@@ -117,6 +143,7 @@
             android:imeOptions="actionDone" />
 
         <Button
+            android:id="@+id/btnSaveuserinfo"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -127,3 +154,4 @@
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
+</RelativeLayout>

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.storage.FirebaseStorage;
@@ -22,4 +23,13 @@ public class BaseFragment extends Fragment {
     public FirebaseStorage storage;
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
+
+    public LinearLayout cvUserinfor;
+    public LinearLayout cvCart;
+    public LinearLayout cvAddProduct;
+    public LinearLayout cvHelp;
+    public LinearLayout cvQuit;
+
+
+
 }

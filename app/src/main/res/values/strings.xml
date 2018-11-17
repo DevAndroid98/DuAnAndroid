@@ -64,7 +64,7 @@
     <string name="facebook_app_id">1821945707916485</string>
     <string name="fb_login_protocol_scheme">fb1821945707916485</string>
     <string name="logoutfb">Đăng xuất</string>
-    <string name="send">Gửi mã?</string>
+    <string name="send">Gửi lại mã?</string>
     <string name="enter_code">Mời bạn nhập</string>
     <string name="enter_codeid">Mã gồm 6 kí tự</string>
     <string name="infor">Thêm thông tin</string>
