@@ -3,6 +3,9 @@
     package="com.tinhduchung.dev.poly.duanandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>>
 
     <application
         android:allowBackup="true"
@@ -18,7 +21,9 @@
         <activity
 
             android:name=".HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashScreen">
@@ -38,6 +43,7 @@
 
         </activity>
         <activity android:name=".AddProductActivity">
+
         </activity>
     </application>
 

@@ -113,10 +113,10 @@ public class Fragment_Menu extends BaseFragment {
             cvUserinfor.setClickable(true);
             cvAddProduct.setClickable(true);
             if (provice.equals("facebook.com")) {
-                mDatabase.child(id).child("info").addChildEventListener(new ChildEventListener() {
+                mDatabase.child(id).child("user").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        User user=dataSnapshot.getValue(User.class);
+                        User.Info user=dataSnapshot.getValue(User.Info.class);
                         name=user.getName();
                         uri=user.getUri();
                         gender=user.getGender();
@@ -181,10 +181,10 @@ public class Fragment_Menu extends BaseFragment {
             } else {
 
 
-                mDatabase.child(id).child("info").addChildEventListener(new ChildEventListener() {
+                mDatabase.child(id).child("user").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        User user=dataSnapshot.getValue(User.class);
+                        User.Info user=dataSnapshot.getValue(User.Info.class);
                              name=user.getName();
                              uri=user.getUri();
                              gender=user.getGender();
@@ -312,11 +312,11 @@ public class Fragment_Menu extends BaseFragment {
                     Toast.makeText(getActivity(), "Chọn ảnh", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                User user = new User(name1, phone, uri,"","","");
+                User.Info user = new User.Info(name1, phone, uri,"","","");
                 loading.setVisibility(View.VISIBLE);
                 name=name1;
                 linearLayout.setAlpha(0.3f);
-                mDatabase.child(id).child("info").child("info").setValue(user)
+                mDatabase.child(id).child("user").child("info").setValue(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

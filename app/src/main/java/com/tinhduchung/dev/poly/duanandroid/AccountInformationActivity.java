@@ -187,7 +187,7 @@ public class AccountInformationActivity extends AppCompatActivity {
                 }
 
                 if (rdman.isChecked()){
-                    User user=new User();
+                    User.Info user=new User.Info();
                     user.setName(name);
                     user.setUri(uri);
                     user.setAddress(address);
@@ -195,7 +195,7 @@ public class AccountInformationActivity extends AppCompatActivity {
                     user.setPhone(phone);
                     user.setGender("man");
 
-                    mDatabase.child(id).child("info").child("info").setValue(user)
+                    mDatabase.child(id).child("user").child("info").setValue(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -206,14 +206,14 @@ public class AccountInformationActivity extends AppCompatActivity {
                                 }
                             });
                 }else {
-                    User user=new User();
+                    User.Info user=new User.Info();
                     user.setName(name);
                     user.setUri(uri);
                     user.setAddress(address);
                     user.setEmail(email);
                     user.setPhone(phone);
                     user.setGender("woman");
-                    mDatabase.child(id).child("info").child("info").setValue(user) .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    mDatabase.child(id).child("user").child("info").setValue(user) .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
 
