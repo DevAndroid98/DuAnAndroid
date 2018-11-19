@@ -96,4 +96,6 @@
     <string name="add_status">Chọn trạng thái</string>
     <string name="post">Đăng</string>
     <string name="btn_add">Thêm</string>
+    <string name="available">Có sẵn</string>
+    <string name="oder">Oder</string>
 </resources>

@@ -117,7 +117,7 @@ public class Fragment_Menu extends BaseFragment {
             cvUserinfor.setClickable(true);
             cvAddProduct.setClickable(true);
             if (provice.equals("facebook.com")) {
-                mDatabase.child(id).child("user").addChildEventListener(new ChildEventListener() {
+                mDatabase.child(id).child("user").child("info").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         User.Info user=dataSnapshot.getValue(User.Info.class);
@@ -185,7 +185,7 @@ public class Fragment_Menu extends BaseFragment {
             } else {
 
 
-                mDatabase.child(id).child("user").addChildEventListener(new ChildEventListener() {
+                mDatabase.child(id).child("user").child("info").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         User.Info user=dataSnapshot.getValue(User.Info.class);
@@ -387,7 +387,9 @@ public class Fragment_Menu extends BaseFragment {
         cvAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AddProductActivity.class));
+                Intent intent=new Intent(getActivity(),AddProductActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
             }
         });
     }

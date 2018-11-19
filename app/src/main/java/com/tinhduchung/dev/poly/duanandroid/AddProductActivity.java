@@ -7,11 +7,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,6 +42,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,6 +56,7 @@ import com.tinhduchung.dev.poly.duanandroid.adapter.Adapter;
 
 import com.tinhduchung.dev.poly.duanandroid.adapter.ColorAdapter;
 import com.tinhduchung.dev.poly.duanandroid.model.ColorModel;
+import com.tinhduchung.dev.poly.duanandroid.user.User;
 import com.yuyh.library.imgsel.ISNav;
 import com.yuyh.library.imgsel.common.ImageLoader;
 import com.yuyh.library.imgsel.config.ISListConfig;
@@ -83,7 +89,8 @@ public class AddProductActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference storageRef;
     private FirebaseStorage storage;
-
+   private SharedPreferences sharedPreferences;
+   private SharedPreferences.Editor editor;
     private Adapter adapter;
     private int i = 0;
     private ArrayList<String> uri = new ArrayList<>();
@@ -94,6 +101,11 @@ public class AddProductActivity extends AppCompatActivity {
 
     private List<String> listcolor = new ArrayList<>();
 
+    private ArrayList<String> strings=new ArrayList<>();
+
+    ArrayList<User.Product> products=new ArrayList<>();
+
+    private  String data="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +132,6 @@ public class AddProductActivity extends AppCompatActivity {
         adapter = new Adapter(AddProductActivity.this, path);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-
         addproduct();
 
 
@@ -128,6 +139,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     private void mapped() {
+        sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
         layout = findViewById(R.id.layout);
         edtTenshop = findViewById(R.id.edt_tenshop);
         recyclerviewimg = findViewById(R.id.recyclerviewimg);
@@ -145,24 +157,38 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     private void onclick() {
-        btnDangsp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
         btnChonmau.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
+                btnChonmau.setText("Chọn màu");
+                btnChonmau.setTextColor(R.color.greenDark);
+                btnChonmau.setTextSize(10f);
                 addlistcolor();
-            }
+                }
         });
 
         btnTinhtrang.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
+                btnTinhtrang.setText("Chọn trạng thái");
+                btnTinhtrang.setTextColor(R.color.greenDark);
+                btnTinhtrang.setTextSize(10f);
                 qualitysp();
+            }
+        });
+
+        btnTrangthai.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                btnTrangthai.setText("Chọn tình trạng");
+                btnTrangthai.setTextColor(R.color.greenDark);
+                btnTrangthai.setTextSize(10f);
+                status();
             }
         });
     }
@@ -253,8 +279,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void addproduct() {
 
-        ArrayList<String> listLoai = new ArrayList<>();
-
+        final ArrayList<String> listLoai = new ArrayList<>();
         listLoai.add("Chọn loại");
         listLoai.add("Quần áo nam");
         listLoai.add("Quần áo nữ");
@@ -267,7 +292,7 @@ public class AddProductActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, final int position, final long in) {
                 btnDangsp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -275,6 +300,79 @@ public class AddProductActivity extends AppCompatActivity {
                         String nameproduc = edtTensp.getText().toString().trim();
                         String price = edtGia.getText().toString().trim();
                         String des = edtMota.getText().toString().trim();
+                        final String neww=sharedPreferences.getString("new","");
+                        String statuss=sharedPreferences.getString("status","");
+                        if (listLoai.get(position).equalsIgnoreCase("Chọn loại")){
+                            return;
+                        }
+                        if (nameshop.equals("")){
+                            return;
+                        }
+                        if (nameproduc.equals("")){
+                            return;
+                        }
+                        if (price.equals("")){
+                            return;
+                        }
+                        if (des.equals("")){
+                            return;
+                        }
+                        if (uri==null){
+                            return;
+                        }
+                        if (listcolor==null){
+                            return;
+                        }
+                        if (neww.equals("")){
+                            return;
+                        }
+                        if(statuss.equals("")){
+                            return;
+                        }
+                        Calendar calendar=Calendar.getInstance();
+                        User.Product product=new User.Product(nameshop,nameproduc,price,data,neww,statuss,des);
+                        mDatabase.child(id).child("user").child("sp:"+calendar.getTimeInMillis()).child("product").child("product").setValue(product);
+                        mDatabase.child(id).child("user").child("sp:"+calendar.getTimeInMillis()).child("uri").setValue(uri);
+                        List<String> sp=new ArrayList<>();
+                        List<User.Id> ids=new ArrayList<>();
+                        ids.add(new User.Id("sp:"+calendar.getTimeInMillis()));
+                        sp.add("sp:"+calendar.getTimeInMillis());
+                        mDatabase.child(id).child("idsp").child(ids.get(0).getId()).setValue(sp.get(0));
+                       finish();
+                       startActivity(new Intent(AddProductActivity.this,HomeActivity.class));
+                       finish();
+
+//                        mDatabase.child("id").child("idsp").addChildEventListener(new ChildEventListener() {
+//                            @Override
+//                            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                                   Object o=dataSnapshot.getValue();
+//                                   strings.add(o.toString());
+//                                Toast.makeText(AddProductActivity.this, ""+strings.size(), Toast.LENGTH_SHORT).show();
+//                               Log.e("SIZE",strings.toString()+"");
+//                                }
+//
+//                            @Override
+//                            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+
+
                     }
                 });
 
@@ -340,7 +438,7 @@ public class AddProductActivity extends AppCompatActivity {
                 if (listcolor==null){
                     return;
                 }else {
-                    String data="";
+
                     for (int i=0;i<listcolor.size();i++){
                         data+=listcolor.get(i)+",";
                         btnChonmau.setText("Màu:"+data);
@@ -371,16 +469,86 @@ public class AddProductActivity extends AppCompatActivity {
        }
        Log.e("TAG",listcolor.size()+"");
        }
-
        private void qualitysp(){
+        editor=sharedPreferences.edit();
            PopupMenu popupMenu=new PopupMenu(this,btnTinhtrang);
            popupMenu.getMenuInflater().inflate(R.menu.qualitysp,popupMenu.getMenu());
            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+               @SuppressLint("ResourceAsColor")
                @Override
                public boolean onMenuItemClick(MenuItem item) {
+                   switch (item.getItemId()){
+                       case R.id.new100:
+                           btnTinhtrang.setTextColor(R.color.greenDark);
+                           btnTinhtrang.setTextSize(10f);
+                           btnTinhtrang.setText("Mới 100%");
+                           editor.putString("new","Mới 100%");
+                           editor.commit();
+                           break;
+
+                       case R.id.new90:
+                           btnTinhtrang.setTextColor(R.color.greenDark);
+                           btnTinhtrang.setTextSize(10f);
+                           btnTinhtrang.setText("Mới 90%");
+                           editor.putString("new","Mới 90%");
+                           editor.commit();
+                           break;
+
+                       case R.id.new80:
+                           btnTinhtrang.setTextColor(R.color.greenDark);
+                           btnTinhtrang.setTextSize(10f);
+                           btnTinhtrang.setText("Mới 80%");
+                           editor.putString("new","Mới 80%");
+                           editor.commit();
+                           break;
+
+                       case R.id.new70:
+                           btnTinhtrang.setTextColor(R.color.greenDark);
+                           btnTinhtrang.setTextSize(10f);
+                           btnTinhtrang.setText("Mới 70%");
+                           editor.putString("new","Mới 70%");
+                           editor.commit();
+                           break;
+
+                       case R.id.new50:
+                           btnTinhtrang.setTextColor(R.color.greenDark);
+                           btnTinhtrang.setTextSize(10f);
+                           btnTinhtrang.setText("Mới 50%");
+                           editor.putString("new","Mới 50%");
+                           editor.commit();
+                           break;
+                   }
                    return true;
                }
            });
            popupMenu.show();
+       }
+
+       private void status(){
+        editor=sharedPreferences.edit();
+        PopupMenu popupMenu=new PopupMenu(this,btnTrangthai);
+        popupMenu.getMenuInflater().inflate(R.menu.status,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.available:
+                        btnTrangthai.setText(R.string.available);
+                        btnTrangthai.setTextSize(10f);
+                        btnTrangthai.setTextColor(R.color.greenDark);
+                        editor.putString("status","Có sẵn");
+                        editor.commit();
+                        break;
+                    case R.id.oder:
+                        editor.putString("status","Oder");
+                        editor.commit();
+                        break;
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
+
        }
 }
