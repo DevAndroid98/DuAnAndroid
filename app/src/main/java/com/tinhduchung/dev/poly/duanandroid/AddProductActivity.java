@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,7 @@ import android.widget.EditText;
 
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -153,6 +155,13 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addlistcolor();
+            }
+        });
+
+        btnTinhtrang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qualitysp();
             }
         });
     }
@@ -360,5 +369,17 @@ public class AddProductActivity extends AppCompatActivity {
            }
        }
        Log.e("TAG",listcolor.size()+"");
+       }
+
+       private void qualitysp(){
+           PopupMenu popupMenu=new PopupMenu(this,btnTinhtrang);
+           popupMenu.getMenuInflater().inflate(R.menu.qualitysp,popupMenu.getMenu());
+           popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+               @Override
+               public boolean onMenuItemClick(MenuItem item) {
+                   return true;
+               }
+           });
+           popupMenu.show();
        }
 }
