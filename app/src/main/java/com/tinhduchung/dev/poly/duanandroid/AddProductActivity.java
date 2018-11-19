@@ -1,6 +1,8 @@
 package com.tinhduchung.dev.poly.duanandroid;
 
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,12 +20,16 @@ import android.support.v7.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -41,6 +47,8 @@ import com.google.firebase.storage.UploadTask;
 import com.tinhduchung.dev.poly.duanandroid.adapter.Adapter;
 
 
+import com.tinhduchung.dev.poly.duanandroid.adapter.ColorAdapter;
+import com.tinhduchung.dev.poly.duanandroid.model.ColorModel;
 import com.yuyh.library.imgsel.ISNav;
 import com.yuyh.library.imgsel.common.ImageLoader;
 import com.yuyh.library.imgsel.config.ISListConfig;
@@ -80,6 +88,10 @@ public class AddProductActivity extends AppCompatActivity {
 
     private ArrayList<String> path = new ArrayList<>();
 
+    private List<ColorModel> models = new ArrayList<>();
+
+    private List<String> listcolor = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +118,8 @@ public class AddProductActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        addproduct();
+
 
     }
 
@@ -128,12 +142,19 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     private void onclick() {
-    btnDangsp.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            test();
-        }
-    });
+        btnDangsp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnChonmau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addlistcolor();
+            }
+        });
     }
 
     @Override
@@ -144,7 +165,7 @@ public class AddProductActivity extends AppCompatActivity {
             ArrayList<String> pathList = data.getStringArrayListExtra("result");
             uri.clear();
             path.clear();
-            i=0;
+            i = 0;
             path.addAll(pathList);
             uploadImage();
             adapter.notifyDataSetChanged();
@@ -165,64 +186,179 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void uploadImage() {
 
-        if (path != null && i<path.size()) {
+        if (path != null && i < path.size()) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Tải ảnh lên...");
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
             Calendar calendar = Calendar.getInstance();
             final StorageReference mountainsRef = storageRef.child("image" + calendar.getTimeInMillis() + "");
 
-                mountainsRef.putFile(Uri.fromFile(new File(path.get(i))))
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                progressDialog.dismiss();
-                                Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                                while (!urlTask.isSuccessful()) ;
-                                Uri downloadUrl = urlTask.getResult();
-                                Log.e("URI",downloadUrl+"");
-                                boolean b=uri.add(String.valueOf(downloadUrl));
-                                Log.e("B",b+"");
-                                Log.e("B",uri.size()+"");
-                                i++;
-                                uploadImage();
+            mountainsRef.putFile(Uri.fromFile(new File(path.get(i))))
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!urlTask.isSuccessful()) ;
+                            Uri downloadUrl = urlTask.getResult();
+                            Log.e("URI", downloadUrl + "");
+                            boolean b = uri.add(String.valueOf(downloadUrl));
+                            Log.e("B", b + "");
+                            Log.e("C", uri.size() + "");
+                            i++;
+                            uploadImage();
 
-                                }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.dismiss();
-                                Log.e("Failed", e.getMessage());
-                                return;
-                            }
-                        })
-                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
-                                        .getTotalByteCount());
-                                progressDialog.setMessage("Đang tải" +"("+ (i+1)+"/"+(path.size())+")" + (int) progress + "%");
-                                
-                                if (i==path.size()-1&& progress==100){{
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Log.e("Failed", e.getMessage());
+                            return;
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Đang tải" + "(" + (i + 1) + "/" + (path.size()) + ")" + (int) progress + "%");
+
+                            if (i == path.size() - 1 && progress == 100) {
+                                {
 
                                     Toast.makeText(AddProductActivity.this, "Tải thành công", Toast.LENGTH_SHORT).show();
 
-                                }}
+                                }
                             }
-                        });
-                   
-                
+                        }
+                    });
 
-            }
 
-        }
-
-        public void test(){
-
-        for (int i=0;i<uri.size();i++){
-           Log.e("TEST",uri.get(i)+"");
-        }
         }
 
     }
+
+    private void addproduct() {
+
+        ArrayList<String> listLoai = new ArrayList<>();
+
+        listLoai.add("Chọn loại");
+        listLoai.add("Quần áo nam");
+        listLoai.add("Quần áo nữ");
+        listLoai.add("Điện thoại");
+        listLoai.add("Đồ gia dụng");
+
+
+        ArrayAdapter adapter = new ArrayAdapter(AddProductActivity.this, android.R.layout.simple_spinner_item, listLoai);
+        spinner.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                btnDangsp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String nameshop = edtTenshop.getText().toString().trim();
+                        String nameproduc = edtTensp.getText().toString().trim();
+                        String price = edtGia.getText().toString().trim();
+                        String des = edtMota.getText().toString().trim();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void addlistcolor() {
+        models.clear();
+        listcolor.clear();
+        models.add(new ColorModel("Xanh"));
+        models.add(new ColorModel("Đỏ"));
+        models.add(new ColorModel("Tím"));
+        models.add(new ColorModel("Vàng"));
+        models.add(new ColorModel("Lục"));
+        models.add(new ColorModel("Lam"));
+        models.add(new ColorModel("Chàm"));
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.item_color);
+        dialog.setCanceledOnTouchOutside(false);
+        GridView girdlayout;
+        girdlayout = dialog.findViewById(R.id.girdlayout);
+        final ColorAdapter colorAdapter = new ColorAdapter(AddProductActivity.this, models);
+        girdlayout.setAdapter(colorAdapter);
+        final Button btnthemmau;
+        final Button btnThem;
+        final EditText edtthemmau;
+        btnthemmau = dialog.findViewById(R.id.txtThem);
+        btnThem = dialog.findViewById(R.id.btn_them);
+        edtthemmau = dialog.findViewById(R.id.edtthemmau);
+
+        btnthemmau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edtthemmau.getText().toString().trim().equals("")) {
+                    return;
+                }
+                boolean b = false;
+                for (int i = 0; i < models.size(); i++) {
+                    if (edtthemmau.getText().toString().trim().equalsIgnoreCase(models.get(i).getColor())) {
+                        b = true;
+                        break;
+                    }
+                }
+                if (b == false) {
+                    models.add(new ColorModel(edtthemmau.getText().toString().trim()));
+                    colorAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                if (listcolor==null){
+                    return;
+                }else {
+                    String data="";
+                    for (int i=0;i<listcolor.size();i++){
+                        data+=listcolor.get(i)+",";
+                        btnChonmau.setText("Màu:"+data);
+                        btnChonmau.setTextColor(R.color.greenDark);
+                        btnChonmau.setTextSize(10f);
+                    }
+                    dialog.dismiss();
+                }
+            }
+        });
+
+
+        dialog.show();
+    }
+
+    public void addcolor(int position){
+        boolean a= listcolor.add(models.get(position).getColor());
+        Log.e("TAG",a+"");
+        Log.e("TAG",listcolor.size()+"");
+        }
+
+    public void deletecolor(String color){
+
+       for (int i=0;i<listcolor.size();i++){
+           if (color.equals(listcolor.get(i))){
+               listcolor.remove(i);
+           }
+       }
+       Log.e("TAG",listcolor.size()+"");
+       }
+}
