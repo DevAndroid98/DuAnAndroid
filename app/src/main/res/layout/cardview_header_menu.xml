@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:background="@drawable/style_edt"
-            android:text="Đăng Nhập"
+            android:text="@string/btn_login"
             android:textColor="@color/greenPrimary" />
     </LinearLayout>
 

@@ -44,10 +44,12 @@ import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 import com.tinhduchung.dev.poly.duanandroid.AccountInformationActivity;
+import com.tinhduchung.dev.poly.duanandroid.AddProductActivity;
 import com.tinhduchung.dev.poly.duanandroid.HomeActivity;
 import com.tinhduchung.dev.poly.duanandroid.LoginActivity;
 import com.tinhduchung.dev.poly.duanandroid.R;
 import com.tinhduchung.dev.poly.duanandroid.SplashScreen;
+import com.tinhduchung.dev.poly.duanandroid.SupportActivity;
 import com.tinhduchung.dev.poly.duanandroid.user.User;
 
 import java.io.ByteArrayOutputStream;
@@ -87,6 +89,8 @@ public class Fragment_Menu extends BaseFragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sharedPreferences=getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
         mapped();
+        Support();
+        addProduct();
 
         name = intent.getStringExtra("name");
         uri = intent.getStringExtra("uri");
@@ -368,6 +372,24 @@ public class Fragment_Menu extends BaseFragment {
             }
         });
         dialog.show();
+    }
+
+    public void Support(){
+        cvHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SupportActivity.class));
+            }
+        });
+    }
+
+    public void addProduct(){
+        cvAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), AddProductActivity.class));
+            }
+        });
     }
 
     public void uploadAnh(ImageView imageView) {

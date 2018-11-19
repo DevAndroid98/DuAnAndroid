@@ -111,6 +111,7 @@ public class AddProductActivity extends AppCompatActivity {
                 Glide.with(context).load(path).into(imageView);
             }
         });
+        getSupportActionBar().setTitle(getString(R.string.add_product));
 
         RecyclerView recyclerView = findViewById(R.id.recyclerviewimg);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AddProductActivity.this, LinearLayoutManager.HORIZONTAL, false);

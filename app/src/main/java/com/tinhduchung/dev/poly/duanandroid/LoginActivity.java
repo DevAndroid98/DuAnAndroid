@@ -54,7 +54,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class LoginActivity extends BaseActivity {
     public EditText code;
-public GifImageView loading;
+    public GifImageView loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ public GifImageView loading;
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String phone=edtphone.getText().toString().trim();
+                final String phone = edtphone.getText().toString().trim();
                 if (phone.equals("")) {
                     edtphone.setError(getString(R.string.error));
                     edtphone.requestFocus();
@@ -124,42 +124,41 @@ public GifImageView loading;
                 }
 
                 sendCode(phone);
-                    Dialog dialog = dialog(R.layout.codephone, WindowManager.LayoutParams.WRAP_CONTENT);
-                    Button xacnhan;
-                    TextView textView=dialog.findViewById(R.id.txtsend);
+                Dialog dialog = dialog(R.layout.codephone, WindowManager.LayoutParams.WRAP_CONTENT);
+                Button xacnhan;
+                TextView textView = dialog.findViewById(R.id.txtsend);
 
-                    code = dialog.findViewById(R.id.code);
-                    xacnhan = dialog.findViewById(R.id.xacnhan);
-                    loading = dialog.findViewById(R.id.loading);
-                    xacnhan.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String codeid = code.getText().toString();
-                            if (codeid.equals("")) {
-                                code.setError(getString(R.string.enter_code));
-                                code.requestFocus();
-                                return;
-                            }
-                            if (codeid.length()!=6){
-                                code.setError(getString(R.string.enter_codeid));
-                                code.requestFocus();
-                                return;
-                            }
-                               loading.setVisibility(View.VISIBLE);
-                               verityCode(codeid);
-
-
-
+                code = dialog.findViewById(R.id.code);
+                xacnhan = dialog.findViewById(R.id.xacnhan);
+                loading = dialog.findViewById(R.id.loading);
+                xacnhan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String codeid = code.getText().toString();
+                        if (codeid.equals("")) {
+                            code.setError(getString(R.string.enter_code));
+                            code.requestFocus();
+                            return;
                         }
-                    });
-                    textView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                           sendCode(phone);
+                        if (codeid.length() != 6) {
+                            code.setError(getString(R.string.enter_codeid));
+                            code.requestFocus();
+                            return;
                         }
-                    });
-                    dialog.show();
-                }
+                        loading.setVisibility(View.VISIBLE);
+                        verityCode(codeid);
+
+
+                    }
+                });
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendCode(phone);
+                    }
+                });
+                dialog.show();
+            }
 
         });
 
@@ -171,22 +170,22 @@ public GifImageView loading;
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.e("TAG",user.getProviders().get(0));
+                    Log.e("TAG", user.getProviders().get(0));
                     if (user.getProviders().get(0).equals("facebook.com")) {
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra("name", user.getDisplayName());
                         intent.putExtra("uri", String.valueOf(user.getPhotoUrl()));
                         intent.putExtra("id", user.getUid());
-                        intent.putExtra("provider",user.getProviders().get(0));
+                        intent.putExtra("provider", user.getProviders().get(0));
                         startActivity(intent);
                         finish();
-                    }else{
+                    } else {
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        intent.putExtra("provider",user.getProviders().get(0));
+                        intent.putExtra("provider", user.getProviders().get(0));
                         intent.putExtra("id", user.getUid());
-                        intent.putExtra("phone",user.getPhoneNumber());
+                        intent.putExtra("phone", user.getPhoneNumber());
                         startActivity(intent);
-                        Log.e("Tinh","B");
+                        Log.e("Tinh", "B");
                         finish();
                     }
                 } else {
@@ -279,10 +278,10 @@ public GifImageView loading;
     }
 
     private void verityCode(String code) {
-        if (idcode!=null){
+        if (idcode != null) {
             PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(idcode, code);
             signInWithPhoneAuthCredential(phoneAuthCredential);
-        }else {
+        } else {
             loading.setVisibility(View.INVISIBLE);
             Toast.makeText(this, "Mã xác nhận chưa hợp lệ", Toast.LENGTH_SHORT).show();
         }

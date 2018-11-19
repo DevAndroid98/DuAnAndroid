@@ -33,12 +33,14 @@
     <!--promotion fragment-->
     <string name="sale">Khuyến mãi</string>
     <string name="salehalloween">Khuyến mãi cực khủng nhân dịp halloween</string>
-    <string name="hotline">Hotline :</string>
-    <string name="hotline2">0982776657</string>
 
     <!--suppport activity-->
     <string name="email">Email:</string>
     <string name="email2">ducpaph06617@fpt.edu.vn</string>
+    <string name="support_app">Hỗ trợ vấn đề app</string>
+    <string name="hotline">Hotline :</string>
+    <string name="hotline2">0982776657</string>
+    <string name="gmail_not_installed">Ứng dụng gmail chưa được cài đặt!!!</string>
 
     <!--Cart fragment-->
     <string name="name_product">Tên sản phẩm</string>
