@@ -212,7 +212,6 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     public void imgselector(View view) {
-        uri.clear();
         ISListConfig config = new ISListConfig.Builder()
                 .multiSelect(true)
 
