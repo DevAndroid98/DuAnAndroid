@@ -115,6 +115,7 @@ public class AddProductActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+
         mapped();
         onclick();
         ISNav.getInstance().init(new ImageLoader() {
@@ -211,6 +212,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     public void imgselector(View view) {
+        uri.clear();
         ISListConfig config = new ISListConfig.Builder()
                 .multiSelect(true)
 
