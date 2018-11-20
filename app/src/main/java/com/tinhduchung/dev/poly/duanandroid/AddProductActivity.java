@@ -319,10 +319,10 @@ public class AddProductActivity extends AppCompatActivity {
                         if (des.equals("")){
                             return;
                         }
-                        if (uri==null){
+                        if (uri.isEmpty()){
                             return;
                         }
-                        if (listcolor==null){
+                        if (listcolor.isEmpty()){
                             return;
                         }
                         if (neww.equals("")){
@@ -339,10 +339,16 @@ public class AddProductActivity extends AppCompatActivity {
                         List<User.Id> ids=new ArrayList<>();
                         ids.add(new User.Id("sp:"+calendar.getTimeInMillis()));
                         sp.add("sp:"+calendar.getTimeInMillis());
-                        mDatabase.child(id).child("idsp").child(ids.get(0).getId()).setValue(sp.get(0));
-                       finish();
-                       startActivity(new Intent(AddProductActivity.this,HomeActivity.class));
-                       finish();
+                        mDatabase.child(id).child("idsp").child(ids.get(0).getId()).setValue(sp.get(0)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(AddProductActivity.this, "Đăng thành công", Toast.LENGTH_SHORT).show();
+                                System.exit(0);
+                                startActivity(new Intent(AddProductActivity.this,HomeActivity.class));
+                                finish();
+
+                            }
+                        });
 
 //                        mDatabase.child("id").child("idsp").addChildEventListener(new ChildEventListener() {
 //                            @Override
