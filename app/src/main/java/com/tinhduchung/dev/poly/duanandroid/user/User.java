@@ -151,11 +151,14 @@ public class User {
     }
     public static class Uriimg{
         private String uri;
+
         public Uriimg() {
         }
+
         public Uriimg(String uri) {
             this.uri = uri;
         }
+
         public String getUri() {
             return uri;
         }

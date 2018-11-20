@@ -548,6 +548,9 @@ public class AddProductActivity extends AppCompatActivity {
                         editor.commit();
                         break;
                     case R.id.oder:
+                        btnTrangthai.setText(R.string.oder);
+                        btnTrangthai.setTextSize(10f);
+                        btnTrangthai.setTextColor(R.color.greenDark);
                         editor.putString("status","Oder");
                         editor.commit();
                         break;
