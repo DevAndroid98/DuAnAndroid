@@ -5,9 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
-
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
