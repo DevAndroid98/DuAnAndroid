@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +20,6 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-
             android:name=".HomeActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -31,27 +30,20 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity android:name=".LoginActivity" />
-
         <activity
             android:name=".CreateAnAccountActivity"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/Create" />
-
-        <activity android:name=".SupportActivity"
-            android:theme="@style/Create">
-        </activity>
-
-        <activity android:name=".AccountInformationActivity">
-        </activity>
-
-        <activity android:name=".AddProductActivity"
-            android:theme="@style/Create">
-
-        </activity>
+        <activity
+            android:name=".SupportActivity"
+            android:theme="@style/Create"></activity>
+        <activity android:name=".AccountInformationActivity"></activity>
+        <activity
+            android:name=".AddProductActivity"
+            android:theme="@style/Create"></activity>
+        <activity android:name=".ProductManagementActivity"></activity>
     </application>
 
 </manifest>
