@@ -28,7 +28,7 @@
     <string name="booth_new">Mới nhất</string>
     <string name="booth_for_man">Dành cho nam</string>
     <string name="booth_for_girl">Dành cho nữ</string>
-    <string name="btmore">THÊM</string>
+    <string name="btmore">Xem Thêm</string>
 
     <!--promotion fragment-->
     <string name="sale">Khuyến mãi</string>
@@ -98,4 +98,6 @@
     <string name="btn_add">Thêm</string>
     <string name="available">Có sẵn</string>
     <string name="oder">Oder</string>
+    <string name="booth_for_houseware">Đồ gia dụng</string>
+    <string name="booth_for_phone">Điện thoại</string>
 </resources>

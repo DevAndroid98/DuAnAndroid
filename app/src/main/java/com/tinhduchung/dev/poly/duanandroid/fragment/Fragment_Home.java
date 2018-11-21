@@ -30,14 +30,26 @@ import java.util.ArrayList;
 
 public class Fragment_Home extends BaseFragment {
     private RecyclerView recyclerviewProductBoy;
+    private RecyclerView recyclerviewProductGirl;
+    private RecyclerView recyclerviewProductPhone;
+    private RecyclerView recyclerviewProductHouseware;
+    private RecyclerView recyclerviewProductnew;
     private ProductAdapter productAdapter;
-    private LinearLayoutManager linearLayoutManager;
-    private ArrayList<String> strings = new ArrayList<>();
+    private ProductAdapter productAdaptergirl;
+    private ProductAdapter productAdapterphone;
+    private ProductAdapter productAdapterhouse;
+    private ProductAdapter productAdapternew;
+
+    private LinearLayoutManager linearLayoutManager,linearLayoutManager1,getLinearLayoutManager2,getLinearLayoutManager3,getGetLinearLayoutManager4;
+
 
     private ArrayList<User.Product> products = new ArrayList<>();
+    private ArrayList<User.Product> productsgirl = new ArrayList<>();
+    private ArrayList<User.Product> productsphone = new ArrayList<>();
+    private ArrayList<User.Product> productshouse= new ArrayList<>();
+    private ArrayList<User.Product> productnew= new ArrayList<>();
 
-    private ArrayList<User.Uriimg> uriimgs = new ArrayList<>();
-    private ArrayList<String> uri = new ArrayList<>();
+
 
     private DatabaseReference mDatabase;
     private StorageReference storageRef;
@@ -61,9 +73,26 @@ public class Fragment_Home extends BaseFragment {
         getiduser();
 
         productAdapter=new ProductAdapter(products,getActivity());
+        productAdaptergirl=new ProductAdapter(productsgirl,getActivity());
+        productAdapterphone=new ProductAdapter(productsphone,getActivity());
+        productAdapterhouse=new ProductAdapter(productshouse,getActivity());
+        productAdapternew=new ProductAdapter(productnew,getActivity());
         linearLayoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        linearLayoutManager1=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        getLinearLayoutManager2=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        getLinearLayoutManager3=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        getGetLinearLayoutManager4=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+
         recyclerviewProductBoy.setLayoutManager(linearLayoutManager);
+        recyclerviewProductGirl.setLayoutManager(linearLayoutManager1);
+        recyclerviewProductPhone.setLayoutManager(getLinearLayoutManager2);
+        recyclerviewProductHouseware.setLayoutManager(getLinearLayoutManager3);
+        recyclerviewProductnew.setLayoutManager(getGetLinearLayoutManager4);
         recyclerviewProductBoy.setAdapter(productAdapter);
+        recyclerviewProductGirl.setAdapter(productAdaptergirl);
+        recyclerviewProductPhone.setAdapter(productAdapterphone);
+        recyclerviewProductHouseware.setAdapter(productAdapterhouse);
+        recyclerviewProductnew.setAdapter(productAdapternew);
         return view;
     }
 
@@ -73,7 +102,12 @@ public class Fragment_Home extends BaseFragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         cvForMan = view.findViewById(R.id.cvForMan);
         btnMoreman =view.findViewById(R.id.btnMoreman);
+        btnMoreman =view.findViewById(R.id.btnMoreman);
+        recyclerviewProductGirl = view.findViewById(R.id.recyclerviewProductGirl);
         recyclerviewProductBoy = view.findViewById(R.id.recyclerviewProductBoy);
+        recyclerviewProductPhone = view.findViewById(R.id.recyclerviewProductPhone);
+        recyclerviewProductHouseware = view.findViewById(R.id.recyclerviewProductHouseware);
+        recyclerviewProductnew = view.findViewById(R.id.recycylerviewnew);
 
 
     }
@@ -83,20 +117,100 @@ public class Fragment_Home extends BaseFragment {
     private void getiduser(){
 
         path.clear();
+        final String nam="Quần áo nam";
+        final String nu="Quần áo nữ";
+        final String dienthoai="Điện thoại";
+        final String dogiadung="Đồ gia dụng";
+        products.clear();
+        productsgirl.clear();
+        productnew.clear();
         mDatabase.child("id").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                if (dataSnapshot.getKey() !=null && dataSnapshot.getKey().startsWith("sp:")){
-                    path.add(dataSnapshot.getKey());
-                    i++;
-                    }
-                    Log.e("I",i+"");
-                    strings.add(dataSnapshot.getKey());
-                     if (i==strings.size()-1){
-                         getproductboy();
-                     }
-                     Log.e("SIZE",path.size()+"");
+                if (dataSnapshot.getKey() !=null && dataSnapshot.getKey().startsWith("sp:")) {
+                    mDatabase.child("id").child(dataSnapshot.getKey()).child("product").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                            User.Product product=dataSnapshot.getValue(User.Product.class);
+                            Log.e("TAG",product.toString());
+                            products.add(0,product);
+                            productsgirl.add(0,product);
+                            productsphone.add(0,product);
+                            productshouse.add(0,product);
+
+                            if (productnew.size()<50){
+                                productnew.add(0,product);
+                                i++;
+                            }
+                            for (i=0;i<products.size();i++){
+                                if (products!=null ){
+                                    if (!nam.equalsIgnoreCase(products.get(i).getLoaisp())){
+                                        products.remove(i);
+                                        }
+
+                                }
+                            }
+                            for (i=0;i<productsgirl.size();i++){
+                                if (productsgirl!=null ){
+                                    if (!nu.equalsIgnoreCase(productsgirl.get(i).getLoaisp())){
+                                        productsgirl.remove(i);
+                                    }
+
+                                }
+                            }
+
+                            for (i=0;i<productshouse.size();i++){
+                                if (productshouse!=null ){
+                                    if (!dogiadung.equalsIgnoreCase(productshouse.get(i).getLoaisp())){
+                                        productshouse.remove(i);
+                                    }
+
+                                }
+                            }
+
+                            for (i=0;i<productsphone.size();i++){
+                                if (productsphone!=null ){
+                                    if (!dienthoai.equalsIgnoreCase(productsphone.get(i).getLoaisp())){
+                                        productsphone.remove(i);
+                                    }
+                                    }
+                            }
+
+                            Log.e("TAG",products.toString());
+                            Log.e("TAGGIRL",productsgirl.toString());
+                            productAdaptergirl.notifyDataSetChanged();
+                            productAdapter.notifyDataSetChanged();
+                            productAdapterphone.notifyDataSetChanged();
+                            productAdapterhouse.notifyDataSetChanged();
+                            productAdapternew.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    Log.e("TAG",products.size()+"");
+
+
+                }
+
 
                      }
 
@@ -128,14 +242,17 @@ public class Fragment_Home extends BaseFragment {
 
     public void getproductboy(){
          products.clear();
-         for (int i=0;i<path.size();i++){
-            mDatabase.child("id").child(path.get(i)).child("product").addChildEventListener(new ChildEventListener() {
+
+            mDatabase.child("id").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    final User.Product product; product =dataSnapshot.getValue(User.Product.class);
-                    products.add(0,product);
-                    productAdapter.notifyDataSetChanged();
-                    Log.e("SIZE",products.size()+"");
+
+               //     products.add(0,product);
+//                    productAdapter.notifyDataSetChanged();
+//                    Log.e("SIZE",products.size()+"");
+                   Log.e("TAG",dataSnapshot.toString());
+
+
 
                     }
                     @Override
@@ -158,7 +275,7 @@ public class Fragment_Home extends BaseFragment {
 
                 }
             });
-       }
+
 
 
 

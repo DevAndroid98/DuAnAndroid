@@ -326,7 +326,7 @@ public class AddProductActivity extends AppCompatActivity {
                             return;
                         }
                         Calendar calendar=Calendar.getInstance();
-                        User.Product product=new User.Product(nameshop,nameproduc,price,data,neww,statuss,des,"sp:"+calendar.getTimeInMillis(),uri.get(0));
+                        User.Product product=new User.Product(nameshop,nameproduc,price,data,neww,statuss,des,"sp:"+calendar.getTimeInMillis(),uri.get(0),listLoai.get(position));
 
                         List<String> sp=new ArrayList<>();
                         sp.clear();

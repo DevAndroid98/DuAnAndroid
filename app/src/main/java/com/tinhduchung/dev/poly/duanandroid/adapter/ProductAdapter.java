@@ -3,6 +3,7 @@ package com.tinhduchung.dev.poly.duanandroid.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
 
        holder.tvNameproduct.setText(product.getNameproduct());
        holder.tvPrice.setText("Giá:"+product.getPriceproduct()+"\tVND");
-       Picasso.get().load(product.getUri()).into(holder.imgProduct);
+       Picasso.get().load(product.getUri()).resize(300,300).centerCrop(Gravity.TOP).into(holder.imgProduct);
     }
 
     @Override

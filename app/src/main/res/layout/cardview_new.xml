@@ -45,18 +45,19 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-        <include layout="@layout/item_productt"/>
-<HorizontalScrollView
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycylerviewnew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="5dp">
 
 
         </android.support.v7.widget.RecyclerView>
-</HorizontalScrollView>
+</RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
