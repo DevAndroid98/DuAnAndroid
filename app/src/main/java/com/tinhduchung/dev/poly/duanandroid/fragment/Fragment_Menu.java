@@ -117,7 +117,7 @@ public class Fragment_Menu extends BaseFragment {
             cvUserinfor.setClickable(true);
             cvAddProduct.setClickable(true);
             if (provice.equals("facebook.com")) {
-                mDatabase.child(id).child("user").child("info").addChildEventListener(new ChildEventListener() {
+                mDatabase.child("id").child("User").child(id).child("user").child("info").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         User.Info user=dataSnapshot.getValue(User.Info.class);
@@ -185,7 +185,7 @@ public class Fragment_Menu extends BaseFragment {
             } else {
 
 
-                mDatabase.child(id).child("user").child("info").addChildEventListener(new ChildEventListener() {
+                mDatabase.child("id").child("User").child(id).child("user").child("info").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         User.Info user=dataSnapshot.getValue(User.Info.class);
@@ -320,13 +320,13 @@ public class Fragment_Menu extends BaseFragment {
                 loading.setVisibility(View.VISIBLE);
                 name=name1;
                 linearLayout.setAlpha(0.3f);
-                mDatabase.child(id).child("user").child("info").setValue(user)
+                mDatabase.child("id").child("User").child(id).child("user").child("info").setValue(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
 
                                 Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                mDatabase.child(id).addChildEventListener(new ChildEventListener() {
+                                mDatabase.child("id").child("User").child(id).addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                                         User user1 = dataSnapshot.getValue(User.class);

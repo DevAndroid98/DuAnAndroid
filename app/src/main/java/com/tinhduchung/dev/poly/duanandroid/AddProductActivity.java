@@ -100,11 +100,6 @@ public class AddProductActivity extends AppCompatActivity {
     private List<ColorModel> models = new ArrayList<>();
 
     private List<String> listcolor = new ArrayList<>();
-
-    private ArrayList<String> strings=new ArrayList<>();
-
-    ArrayList<User.Product> products=new ArrayList<>();
-
     private  String data="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -331,14 +326,16 @@ public class AddProductActivity extends AppCompatActivity {
                             return;
                         }
                         Calendar calendar=Calendar.getInstance();
-                        User.Product product=new User.Product(nameshop,nameproduc,price,data,neww,statuss,des);
-                        mDatabase.child(id).child("user").child("sp:"+calendar.getTimeInMillis()).child("product").child("product").setValue(product);
-                        mDatabase.child(id).child("user").child("sp:"+calendar.getTimeInMillis()).child("uri").setValue(uri);
+                        User.Product product=new User.Product(nameshop,nameproduc,price,data,neww,statuss,des,"sp:"+calendar.getTimeInMillis(),uri.get(0));
+
                         List<String> sp=new ArrayList<>();
+                        sp.clear();
                         List<User.Id> ids=new ArrayList<>();
                         ids.add(new User.Id("sp:"+calendar.getTimeInMillis()));
                         sp.add("sp:"+calendar.getTimeInMillis());
-                        mDatabase.child(id).child("idsp").child(ids.get(0).getId()).setValue(sp.get(0)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        mDatabase.child("id").child("User").child(id).child("user").child("idsp").child(sp.get(0)).setValue(sp.get(0));
+                        mDatabase.child("id").child("User").child(id).child(sp.get(0)).setValue(uri);
+                        mDatabase.child("id").child(sp.get(0)).child("product").child("product").setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(AddProductActivity.this, "Đăng thành công", Toast.LENGTH_SHORT).show();
@@ -349,38 +346,7 @@ public class AddProductActivity extends AppCompatActivity {
                             }
                         });
 
-//                        mDatabase.child("id").child("idsp").addChildEventListener(new ChildEventListener() {
-//                            @Override
-//                            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                                   Object o=dataSnapshot.getValue();
-//                                   strings.add(o.toString());
-//                                Toast.makeText(AddProductActivity.this, ""+strings.size(), Toast.LENGTH_SHORT).show();
-//                               Log.e("SIZE",strings.toString()+"");
-//                                }
-//
-//                            @Override
-//                            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                            }
-//                        });
-
-
-                    }
+                        }
                 });
 
             }

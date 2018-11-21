@@ -171,4 +171,6 @@ public class SplashScreen extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 }

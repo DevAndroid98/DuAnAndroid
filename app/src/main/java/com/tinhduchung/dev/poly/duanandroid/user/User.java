@@ -79,11 +79,13 @@ public class User {
         public String lovestatus;
         private String status;
         private String describe;
+        private String idsp;
+        private String uri;
 
         public Product() {
         }
 
-        public Product(String nameshop, String nameproduct, String priceproduct, String colorproduct, String lovestatus, String status, String describe) {
+        public Product(String nameshop, String nameproduct, String priceproduct, String colorproduct, String lovestatus, String status, String describe, String idsp, String uri) {
             this.nameshop = nameshop;
             this.nameproduct = nameproduct;
             this.priceproduct = priceproduct;
@@ -91,6 +93,8 @@ public class User {
             this.lovestatus = lovestatus;
             this.status = status;
             this.describe = describe;
+            this.idsp = idsp;
+            this.uri = uri;
         }
 
         public String getNameshop() {
@@ -147,6 +151,22 @@ public class User {
 
         public void setDescribe(String describe) {
             this.describe = describe;
+        }
+
+        public String getIdsp() {
+            return idsp;
+        }
+
+        public void setIdsp(String idsp) {
+            this.idsp = idsp;
+        }
+
+        public String getUri() {
+            return uri;
+        }
+
+        public void setUri(String uri) {
+            this.uri = uri;
         }
     }
     public static class Uriimg{

@@ -194,7 +194,7 @@ public class AccountInformationActivity extends AppCompatActivity {
                     user.setEmail(email);
                     user.setPhone(phone);
                     user.setGender("man");
-                    mDatabase.child(id).child("user").child("info").child("info").setValue(user)
+                    mDatabase.child("id").child("User").child(id).child("user").child("info").child("info").setValue(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -212,7 +212,7 @@ public class AccountInformationActivity extends AppCompatActivity {
                     user.setEmail(email);
                     user.setPhone(phone);
                     user.setGender("woman");
-                    mDatabase.child(id).child("user").child("info").child("info").setValue(user) .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    mDatabase.child("id").child("User").child(id).child("user").child("info").child("info").setValue(user) .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
 

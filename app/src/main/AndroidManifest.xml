@@ -43,7 +43,7 @@
         <activity
             android:name=".AddProductActivity"
             android:theme="@style/Create"></activity>
-        <activity android:name=".ProductManagementActivity"></activity>
+        <activity android:name=".ProductManagementActivity"> </activity>
     </application>
 
 </manifest>
