@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/icons8_facebook_480" />
+            android:src="@drawable/ic_sale" />
 
         <LinearLayout
             android:layout_width="match_parent"
