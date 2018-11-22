@@ -1,33 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
-    android:layout_height="150dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:padding="5dp">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_gravity="center_horizontal"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_width="150dp"
+        android:layout_height="185dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="4dp"
+        android:elevation="4dp"
+        >
 
-        <ImageView
-            android:scaleType="centerCrop"
-            android:id="@+id/btn_product"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/ic_product" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
-        <TextView
-            android:id="@+id/tvNameproduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name_product" />
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/btn_product"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_picture" />
 
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/price" />
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvNameproduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_product"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/name_product"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvNameproduct"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/price"
+                android:textColor="@color/greenPrimary" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

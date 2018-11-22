@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/greenPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/left"
+                android:layout_centerVertical="true"
+                android:background="@color/greenPrimary"
+                android:layout_width="35dp"
+
+                android:layout_height="35dp"
+                android:src="@drawable/ic_left"/>
+
+            <ImageView
+                android:padding="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="13dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_card_white"/>
+
+            <LinearLayout
+
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/style_cart"
+                android:gravity="center">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="5"
+                    android:textColor="@color/greenPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+   <RelativeLayout
+       android:id="@+id/top"
+       android:layout_below="@id/toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="200dp"
+       >
+       <android.support.v7.widget.RecyclerView
+           android:padding="5dp"
+          android:id="@+id/recyclerviewimg"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+       </android.support.v7.widget.RecyclerView>
+   </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+        <TextView
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="Thêm vào giỏ"
+            android:background="@color/bb_tabletRightBorderDark"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+       <TextView
+           android:textColor="@color/white"
+           android:textSize="18sp"
+           android:gravity="center"
+           android:text="Mua ngay"
+           android:background="@color/greenPrimary"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_below="@id/top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

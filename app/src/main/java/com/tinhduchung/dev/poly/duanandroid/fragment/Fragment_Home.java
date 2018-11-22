@@ -1,5 +1,6 @@
 package com.tinhduchung.dev.poly.duanandroid.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,9 +10,14 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.tinhduchung.dev.poly.duanandroid.R;
+import com.tinhduchung.dev.poly.duanandroid.adapter.GridAdapter;
 import com.tinhduchung.dev.poly.duanandroid.adapter.ProductAdapter;
 import com.tinhduchung.dev.poly.duanandroid.user.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Fragment_Home extends BaseFragment {
     private RecyclerView recyclerviewProductBoy;
@@ -39,6 +47,7 @@ public class Fragment_Home extends BaseFragment {
     private ProductAdapter productAdapterphone;
     private ProductAdapter productAdapterhouse;
     private ProductAdapter productAdapternew;
+    private GridAdapter gridAdapter;
 
     private LinearLayoutManager linearLayoutManager,linearLayoutManager1,getLinearLayoutManager2,getLinearLayoutManager3,getGetLinearLayoutManager4;
 
@@ -48,7 +57,7 @@ public class Fragment_Home extends BaseFragment {
     private ArrayList<User.Product> productsphone = new ArrayList<>();
     private ArrayList<User.Product> productshouse= new ArrayList<>();
     private ArrayList<User.Product> productnew= new ArrayList<>();
-
+   private List<User.Product> list=new ArrayList<>();
 
 
     private DatabaseReference mDatabase;
@@ -65,6 +74,9 @@ public class Fragment_Home extends BaseFragment {
 
 
 
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,11 +84,11 @@ public class Fragment_Home extends BaseFragment {
         mapped();
         getiduser();
 
-        productAdapter=new ProductAdapter(products,getActivity());
-        productAdaptergirl=new ProductAdapter(productsgirl,getActivity());
-        productAdapterphone=new ProductAdapter(productsphone,getActivity());
-        productAdapterhouse=new ProductAdapter(productshouse,getActivity());
-        productAdapternew=new ProductAdapter(productnew,getActivity());
+        productAdapter=new ProductAdapter(products,Fragment_Home.this);
+        productAdaptergirl=new ProductAdapter(productsgirl,Fragment_Home.this);
+        productAdapterphone=new ProductAdapter(productsphone,Fragment_Home.this);
+        productAdapterhouse=new ProductAdapter(productshouse,Fragment_Home.this);
+        productAdapternew=new ProductAdapter(productnew,Fragment_Home.this);
         linearLayoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         linearLayoutManager1=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         getLinearLayoutManager2=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
@@ -93,6 +105,14 @@ public class Fragment_Home extends BaseFragment {
         recyclerviewProductPhone.setAdapter(productAdapterphone);
         recyclerviewProductHouseware.setAdapter(productAdapterhouse);
         recyclerviewProductnew.setAdapter(productAdapternew);
+
+
+        btnMoreman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviews();
+            }
+        });
         return view;
     }
 
@@ -108,6 +128,7 @@ public class Fragment_Home extends BaseFragment {
         recyclerviewProductPhone = view.findViewById(R.id.recyclerviewProductPhone);
         recyclerviewProductHouseware = view.findViewById(R.id.recyclerviewProductHouseware);
         recyclerviewProductnew = view.findViewById(R.id.recycylerviewnew);
+        btnMoreman =view.findViewById(R.id.btnMoreman);
 
 
     }
@@ -138,7 +159,7 @@ public class Fragment_Home extends BaseFragment {
                             productsgirl.add(0,product);
                             productsphone.add(0,product);
                             productshouse.add(0,product);
-
+                            list.add(0,product);
                             if (productnew.size()<50){
                                 productnew.add(0,product);
                                 i++;
@@ -147,9 +168,9 @@ public class Fragment_Home extends BaseFragment {
                                 if (products!=null ){
                                     if (!nam.equalsIgnoreCase(products.get(i).getLoaisp())){
                                         products.remove(i);
-                                        }
 
-                                }
+                                        }
+                                        }
                             }
                             for (i=0;i<productsgirl.size();i++){
                                 if (productsgirl!=null ){
@@ -280,6 +301,58 @@ public class Fragment_Home extends BaseFragment {
 
 
 
+    }
+
+    public void reviews(){
+
+        final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.item_for_boy);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
+
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
+        ImageView left;
+
+          left =  dialog.findViewById(R.id.left);
+           left.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   dialog.cancel();
+               }
+           });
+           GridView gif=dialog.findViewById(R.id.gif);
+           gridAdapter=new GridAdapter(Fragment_Home.this,products);
+           gif = dialog.findViewById(R.id.gif);
+           gif.setAdapter(gridAdapter);
+
+
+        dialog.show();
+
+    }
+
+
+    public void clickproduct(){
+        final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog1);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.item_click);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.TOP;
+
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
+
+        dialog.show();
     }
 
 
