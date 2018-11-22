@@ -30,6 +30,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.tinhduchung.dev.poly.duanandroid.R;
 import com.tinhduchung.dev.poly.duanandroid.adapter.GridAdapter;
+import com.tinhduchung.dev.poly.duanandroid.adapter.ImageAdapter;
 import com.tinhduchung.dev.poly.duanandroid.adapter.ProductAdapter;
 import com.tinhduchung.dev.poly.duanandroid.user.User;
 
@@ -338,7 +339,7 @@ public class Fragment_Home extends BaseFragment {
     }
 
 
-    public void clickproduct(){
+    public void clickproduct(User.Product product,int prosion){
         final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog1);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.item_click);
@@ -351,6 +352,40 @@ public class Fragment_Home extends BaseFragment {
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
         wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(wlp);
+
+         TextView txtProduct;
+         RecyclerView recyclerviewimg;
+         TextView txProduct;
+         TextView txtprice;
+         TextView txtnameshop;
+         TextView txtSanPham;
+         TextView txtdate;
+         LinearLayoutManager imglayout;
+        txtProduct = dialog.findViewById(R.id.txtProduct);
+        recyclerviewimg =  dialog.findViewById(R.id.recyclerviewimg);
+        txProduct =  dialog.findViewById(R.id.txProduct);
+        txtprice =  dialog.findViewById(R.id.txtprice);
+        txtnameshop = dialog.findViewById(R.id.txtnameshop);
+        txtSanPham =  dialog.findViewById(R.id.txtSanPham);
+        txtdate =  dialog.findViewById(R.id.txtdate);
+        imglayout=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        ArrayList<String>  uri=new ArrayList<>();
+        uri.clear();
+        ImageAdapter imageAdapter=new ImageAdapter(getActivity(),uri);
+        recyclerviewimg.setLayoutManager(imglayout);
+        recyclerviewimg.setAdapter(imageAdapter);
+
+        uri.add(product.getUri());
+        uri.add(product.getUri());
+        uri.add(product.getUri());
+        uri.add(product.getUri());
+        imageAdapter.notifyDataSetChanged();
+        txProduct.setText(product.getNameproduct());
+        txtProduct.setText(product.getNameproduct());
+        txtnameshop.setText("Shop:"+product.getNameshop());
+        txtprice.setText("đ"+product.getPriceproduct());
+
+
 
         dialog.show();
     }

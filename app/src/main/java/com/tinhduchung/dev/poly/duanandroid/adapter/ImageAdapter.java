@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
 import com.tinhduchung.dev.poly.duanandroid.R;
 import com.tinhduchung.dev.poly.duanandroid.hodel.ImageViewHodel;
 import com.tinhduchung.dev.poly.duanandroid.model.ImageModel;
@@ -18,11 +19,11 @@ import java.util.ArrayList;
 public class ImageAdapter  extends RecyclerView.Adapter<ImageViewHodel> {
 
      private Context context;
-     private ArrayList<ImageModel> models;
+     private ArrayList<String> uri;
 
-    public ImageAdapter(Context context, ArrayList<ImageModel> models) {
+    public ImageAdapter(Context context, ArrayList<String> models) {
         this.context = context;
-        this.models = models;
+        this.uri = models;
     }
 
     @NonNull
@@ -35,12 +36,12 @@ public class ImageAdapter  extends RecyclerView.Adapter<ImageViewHodel> {
     @Override
     public void onBindViewHolder(@NonNull ImageViewHodel holder, int position) {
 
-        holder.img.setImageURI(Uri.parse(models.get(position).uri));
+        Picasso.get().load(uri.get(position)).into(holder.img);
 
     }
 
     @Override
     public int getItemCount() {
-        return models.size();
+        return uri.size();
     }
 }

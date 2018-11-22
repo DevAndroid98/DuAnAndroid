@@ -27,6 +27,7 @@ public class BaseFragment extends Fragment {
     public LinearLayout cvUserinfor;
     public LinearLayout cvCart;
     public LinearLayout cvAddProduct;
+    public LinearLayout cvManageProduct;
     public LinearLayout cvHelp;
     public LinearLayout cvQuit;
 

@@ -39,7 +39,8 @@
         <activity
             android:name=".SupportActivity"
             android:theme="@style/Create"></activity>
-        <activity android:name=".AccountInformationActivity"></activity>
+        <activity android:name=".AccountInformationActivity"
+            android:theme="@style/Create"></activity>
         <activity
             android:name=".AddProductActivity"
             android:theme="@style/Create"></activity>

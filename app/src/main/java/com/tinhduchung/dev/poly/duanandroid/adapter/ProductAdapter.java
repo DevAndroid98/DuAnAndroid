@@ -34,15 +34,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
-       User.Product product=products.get(position);
+    public void onBindViewHolder(@NonNull ProductHolder holder, final int position) {
+       final User.Product product=products.get(position);
        holder.tvNameproduct.setText(product.getNameproduct());
        holder.tvPrice.setText("Giá:"+product.getPriceproduct()+"\tVND");
        Picasso.get().load(product.getUri()).resize(300,300).centerCrop(Gravity.TOP).into(holder.imgProduct);
        holder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               context.clickproduct();
+               context.clickproduct(product,position);
            }
        });
     }

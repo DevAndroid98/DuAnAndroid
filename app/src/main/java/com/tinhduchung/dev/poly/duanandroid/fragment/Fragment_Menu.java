@@ -266,6 +266,7 @@ public class Fragment_Menu extends BaseFragment {
         cvUserinfor = view.findViewById(R.id.cvUserinfor);
         cvCart =  view.findViewById(R.id.cvCart);
         cvAddProduct = view.findViewById(R.id.cvAddProduct);
+        cvManageProduct = view.findViewById(R.id.cvManage);
         cvHelp =  view.findViewById(R.id.cvHelp);
         cvQuit = view.findViewById(R.id.cvQuit);
     }
@@ -320,7 +321,7 @@ public class Fragment_Menu extends BaseFragment {
                 loading.setVisibility(View.VISIBLE);
                 name=name1;
                 linearLayout.setAlpha(0.3f);
-                mDatabase.child("id").child("User").child(id).child("user").child("info").setValue(user)
+                mDatabase.child("id").child("User").child(id).child("user").child("info").child("info").setValue(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

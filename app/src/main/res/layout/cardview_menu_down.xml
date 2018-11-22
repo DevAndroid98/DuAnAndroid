@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,6 +64,7 @@
                     android:textColor="@color/greenPrimary" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/cvAddProduct"
             android:layout_width="match_parent"
@@ -88,6 +89,34 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="50dp"
                     android:text="@string/add_product"
+                    android:textColor="@color/greenPrimary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cvManage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_manage_product" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="50dp"
+                    android:text="@string/manage_product"
                     android:textColor="@color/greenPrimary" />
             </LinearLayout>
         </LinearLayout>
