@@ -330,7 +330,7 @@ public class Fragment_Menu extends BaseFragment {
                                 mDatabase.child("id").child("User").child(id).addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                        User user1 = dataSnapshot.getValue(User.class);
+                                        //User user1 = dataSnapshot.getValue(User.class);
                                        // uri = user1.getUri();
                                         //name = user1.getName();
                                         txtUsername.setText(name);
