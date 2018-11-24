@@ -338,7 +338,7 @@ public class AddProductActivity extends AppCompatActivity {
                         ids.add(new User.Id("sp:"+calendar.getTimeInMillis()));
                         sp.add("sp:"+calendar.getTimeInMillis());
                         mDatabase.child("id").child("User").child(id).child("user").child("idsp").child(sp.get(0)).setValue(sp.get(0));
-                        mDatabase.child("id").child("User").child(id).child(sp.get(0)).setValue(uri);
+                        mDatabase.child("id").child("User").child("sp").child(sp.get(0)).setValue(uri);
                         mDatabase.child("id").child(sp.get(0)).child("product").child("product").setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

@@ -18,9 +18,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.tinhduchung.dev.poly.duanandroid.AccountInformationActivity;
 import com.tinhduchung.dev.poly.duanandroid.R;
 import com.tinhduchung.dev.poly.duanandroid.adapter.GridAdapter;
 import com.tinhduchung.dev.poly.duanandroid.adapter.ImageAdapter;
@@ -60,20 +63,44 @@ public class Fragment_Home extends BaseFragment {
     private ArrayList<User.Product> productsphone = new ArrayList<>();
     private ArrayList<User.Product> productshouse= new ArrayList<>();
     private ArrayList<User.Product> productnew= new ArrayList<>();
-   private List<User.Product> list=new ArrayList<>();
+    private List<User.Product> list=new ArrayList<>();
 
 
     private DatabaseReference mDatabase;
     private StorageReference storageRef;
     private FirebaseStorage storage;
     private ArrayList<String> path = new ArrayList<>();
+    private ArrayList<String> uri = new ArrayList<>();
+    private ArrayList<User.cartsp> giohangArray = new ArrayList<>();
     private CardView cvForMan;
     private TextView btnMoreman;
 
     private  int i=0;
+    private boolean check=false;
 
 
   private TextView textView;
+   private String id="";
+
+
+    private  TextView txtProduct;
+    private  RecyclerView recyclerviewimg;
+    private TextView txProduct;
+    private TextView txtprice;
+    private  TextView txtnameshop;
+    private  TextView txtSanPham;
+    private   TextView txtdate;
+    private  TextView txtloai;
+    private  TextView txttinhtrang;
+    private  TextView txttrangthai;
+    private TextView txtsoluong;
+    private TextView txtmota;
+    private ImageView left;
+    private  TextView intgio;
+    private  TextView themvaogio;
+    private TextView muangay;
+    private  ImageView giohang;
+    private  LinearLayout layout;
 
 
 
@@ -86,7 +113,8 @@ public class Fragment_Home extends BaseFragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         mapped();
         getiduser();
-
+        Intent intent=getActivity().getIntent();
+        id=intent.getStringExtra("id");
         productAdapter=new ProductAdapter(products,Fragment_Home.this);
         productAdaptergirl=new ProductAdapter(productsgirl,Fragment_Home.this);
         productAdapterphone=new ProductAdapter(productsphone,Fragment_Home.this);
@@ -341,7 +369,7 @@ public class Fragment_Home extends BaseFragment {
     }
 
 
-    public void clickproduct(User.Product product,int prosion){
+    public void clickproduct(final User.Product product, int prosion){
         final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog1);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.item_click);
@@ -355,20 +383,70 @@ public class Fragment_Home extends BaseFragment {
         wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(wlp);
 
-         TextView txtProduct;
-         RecyclerView recyclerviewimg;
-         TextView txProduct;
-         TextView txtprice;
-         TextView txtnameshop;
-         TextView txtSanPham;
-         TextView txtdate;
-         TextView txtloai;
-         TextView txttinhtrang;
-         TextView txttrangthai;
-         TextView txtsoluong;
-         TextView txtmota;
 
-         txtloai = dialog.findViewById(R.id.txtloai);
+        left = dialog.findViewById(R.id.left);
+        intgio = dialog.findViewById(R.id.intgio);
+        themvaogio = dialog.findViewById(R.id.themvaogio);
+        muangay = dialog.findViewById(R.id.muangay);
+        giohang = dialog.findViewById(R.id.giohang);
+        layout = dialog.findViewById(R.id.layout);
+          giohang.setVisibility(View.INVISIBLE);
+          layout.setVisibility(View.INVISIBLE);
+
+          getcart();
+        final Calendar calendar1=Calendar.getInstance();
+
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        giohang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        themvaogio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id==null){
+                    Toast.makeText(getActivity(), "Vui lòng đăng nhập", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    if (!giohangArray.isEmpty()){
+                        for (int i=0;i<giohangArray.size();i++){
+                            if (product.getIdsp().equalsIgnoreCase(giohangArray.get(i).getIdsp())){
+                                check=true;
+                                Toast.makeText(getActivity(), "Sản phẩm đã tồn tại trong giỏ hàng", Toast.LENGTH_SHORT).show();
+                                break;
+                            }else{
+                                check=false;
+                            }
+                        }
+                    }
+                    if (check==false){
+                        giohangArray.clear();
+                        User.cartsp cartsp=new User.cartsp();
+                        cartsp.setIdsp(product.getIdsp());
+                        cartsp.setSoluong("1");
+                        mDatabase.child("id").child("User").child(id).child("cart").child(calendar1.getTimeInMillis()+"").setValue(cartsp).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                   getcart();
+                            }
+                        });
+                    }
+
+
+                }
+            }
+        });
+
+
+        txtloai = dialog.findViewById(R.id.txtloai);
         txttinhtrang = dialog.findViewById(R.id.txttinhtrang);
         txttrangthai =  dialog.findViewById(R.id.txttrangthai);
         txtsoluong = dialog.findViewById(R.id.txtsoluong);
@@ -384,16 +462,40 @@ public class Fragment_Home extends BaseFragment {
         txtdate =  dialog.findViewById(R.id.txtdate);
         textView=dialog.findViewById(R.id.posion);
         imglayout=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-        ArrayList<String>  uri=new ArrayList<>();
+
         uri.clear();
-        ImageAdapter imageAdapter=new ImageAdapter(Fragment_Home.this,uri);
+        ImageAdapter imageAdapter=new ImageAdapter(Fragment_Home.this,uri,R.layout.item_image);
         recyclerviewimg.setLayoutManager(imglayout);
         recyclerviewimg.setAdapter(imageAdapter);
+        String idsp=product.getIdsp();
+        mDatabase.child("id").child("User").child("sp").child(idsp).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                             Object o=dataSnapshot.getValue();
+                             uri.add(o.toString());
+                             Log.e("TAG",uri.size()+"");
+            }
 
-        uri.add(product.getUri());
-        uri.add(product.getUri());
-        uri.add(product.getUri());
-        uri.add(product.getUri());
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         imageAdapter.notifyDataSetChanged();
         txProduct.setText(product.getNameproduct());
         txtProduct.setText(product.getNameproduct());
@@ -404,20 +506,83 @@ public class Fragment_Home extends BaseFragment {
         txttinhtrang.setText(product.getLovestatus());
         txtmota.setText(product.getDescribe());
         txtsoluong.setText(product.getSoluong());
-        String idsp=product.getIdsp();
+
 
         String thoigia=product.getThoigian();
         Calendar calendar=Calendar.getInstance();
-        int date= (int) ((calendar.getTimeInMillis()-Long.valueOf(thoigia))/(1000*60*60*24))+1;
+        int date= (int) ((calendar.getTimeInMillis()-Long.valueOf(thoigia))/(1000*60*60*24));
         if (date==0){
             txtdate.setText("Hôm nay");
         }else if (date<=30){
             txtdate.setText(date+"ngày");
         }else {
+                  ///..........//
 
         }
+
+
+
+
 
         dialog.show();
     }
 
+    public void imgzoom(){
+        final Dialog dialog=new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_img_zoom);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.TOP;
+
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
+        RecyclerView recyclerView=dialog.findViewById(R.id.recyclerviewimg);
+        ImageAdapter imageAdapter=new ImageAdapter(Fragment_Home.this,uri,R.layout.item_image_b);
+        LinearLayoutManager imglayout=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(imglayout);
+        recyclerView.setAdapter(imageAdapter);
+        dialog.show();
+    }
+
+
+    private void getcart(){
+        if (id!=null){
+            giohangArray.clear();
+            mDatabase.child("id").child("User").child(id).child("cart").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    User.cartsp cartsp=dataSnapshot.getValue(User.cartsp.class);
+                    giohangArray.add(cartsp);
+                    giohang.setVisibility(View.VISIBLE);
+                    layout.setVisibility(View.VISIBLE);
+                    intgio.setText(giohangArray.size()+"");
+                    Log.e("KEY",giohangArray.size()+"");
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Log.e("KEY","a");
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    Log.e("KEY","b");
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Log.e("KEY","c");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("KEY","d");
+                }
+            }) ;
+        }
+    }
 }

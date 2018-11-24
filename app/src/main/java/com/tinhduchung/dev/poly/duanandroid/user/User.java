@@ -236,4 +236,33 @@ public class User {
          }
      }
 
+     public static class cartsp{
+        public String idsp;
+        public String soluong;
+
+         public cartsp() {
+         }
+
+         public cartsp(String idsp, String soluong) {
+             this.idsp = idsp;
+             this.soluong = soluong;
+         }
+
+         public String getIdsp() {
+             return idsp;
+         }
+
+         public void setIdsp(String idsp) {
+             this.idsp = idsp;
+         }
+
+         public String getSoluong() {
+             return soluong;
+         }
+
+         public void setSoluong(String soluong) {
+             this.soluong = soluong;
+         }
+     }
+
 }

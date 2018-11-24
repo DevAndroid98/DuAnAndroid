@@ -1,35 +1,49 @@
 package com.tinhduchung.dev.poly.duanandroid;
 
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Cart;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Home;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Menu;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Notification;
+import com.tinhduchung.dev.poly.duanandroid.user.User;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import spencerstudios.com.bungeelib.Bungee;
 
 public class HomeActivity extends BaseActivity {
-
+    private DatabaseReference mDatabase;
+    private ArrayList<User.cartsp> giohangArray = new ArrayList<>();
+    private String id="";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bungee.zoom(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Intent intent=getIntent();
+        id=intent.getStringExtra("id");
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.tinhduchung.dev.poly.duanandroid",
@@ -46,7 +60,7 @@ public class HomeActivity extends BaseActivity {
         }
         mapped();
         onclickView();
-        notification();
+        getcart();
     }
 
     //ánh xạ view
@@ -82,7 +96,7 @@ public class HomeActivity extends BaseActivity {
     //thông báo của bottom navigation
 
     private void notification() {
-        nearby.setBadgeCount(50);
+
         nearby2.setBadgeCount(60);
         nearby3.setBadgeCount(1);
     }
@@ -120,5 +134,40 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         HomeActivity.this.finish();
+    }
+
+    private void getcart(){
+        if (id!=null){
+            giohangArray.clear();
+            mDatabase.child("id").child("User").child(id).child("cart").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    User.cartsp cartsp=dataSnapshot.getValue(User.cartsp.class);
+                    giohangArray.add(cartsp);
+                    nearby.setBadgeCount(giohangArray.size());
+                    Log.e("KEY",giohangArray.size()+"");
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Log.e("KEY","a");
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    Log.e("KEY","b");
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Log.e("KEY","c");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("KEY","d");
+                }
+            }) ;
+        }
     }
 }
