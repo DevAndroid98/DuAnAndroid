@@ -37,8 +37,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
     public void onBindViewHolder(@NonNull ProductHolder holder, final int position) {
        final User.Product product=products.get(position);
        holder.tvNameproduct.setText(product.getNameproduct());
-       holder.tvPrice.setText("Giá:"+product.getPriceproduct()+"\tVND");
-       Picasso.get().load(product.getUri()).resize(300,300).centerCrop(Gravity.TOP).into(holder.imgProduct);
+       holder.tvPrice.setText("đ" +product.getPriceproduct());
+       Picasso.get().load(product.getUri()).resize(1080,1920).centerCrop(Gravity.CENTER).into(holder.imgProduct);
        holder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {

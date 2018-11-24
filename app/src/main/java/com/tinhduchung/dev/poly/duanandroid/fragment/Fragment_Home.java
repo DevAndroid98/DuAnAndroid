@@ -34,7 +34,9 @@ import com.tinhduchung.dev.poly.duanandroid.adapter.ImageAdapter;
 import com.tinhduchung.dev.poly.duanandroid.adapter.ProductAdapter;
 import com.tinhduchung.dev.poly.duanandroid.user.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Fragment_Home extends BaseFragment {
@@ -71,7 +73,7 @@ public class Fragment_Home extends BaseFragment {
     private  int i=0;
 
 
-
+  private TextView textView;
 
 
 
@@ -360,7 +362,19 @@ public class Fragment_Home extends BaseFragment {
          TextView txtnameshop;
          TextView txtSanPham;
          TextView txtdate;
-         LinearLayoutManager imglayout;
+         TextView txtloai;
+         TextView txttinhtrang;
+         TextView txttrangthai;
+         TextView txtsoluong;
+         TextView txtmota;
+
+         txtloai = dialog.findViewById(R.id.txtloai);
+        txttinhtrang = dialog.findViewById(R.id.txttinhtrang);
+        txttrangthai =  dialog.findViewById(R.id.txttrangthai);
+        txtsoluong = dialog.findViewById(R.id.txtsoluong);
+        txtmota =  dialog.findViewById(R.id.txtmota);
+
+        LinearLayoutManager imglayout;
         txtProduct = dialog.findViewById(R.id.txtProduct);
         recyclerviewimg =  dialog.findViewById(R.id.recyclerviewimg);
         txProduct =  dialog.findViewById(R.id.txProduct);
@@ -368,10 +382,11 @@ public class Fragment_Home extends BaseFragment {
         txtnameshop = dialog.findViewById(R.id.txtnameshop);
         txtSanPham =  dialog.findViewById(R.id.txtSanPham);
         txtdate =  dialog.findViewById(R.id.txtdate);
+        textView=dialog.findViewById(R.id.posion);
         imglayout=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         ArrayList<String>  uri=new ArrayList<>();
         uri.clear();
-        ImageAdapter imageAdapter=new ImageAdapter(getActivity(),uri);
+        ImageAdapter imageAdapter=new ImageAdapter(Fragment_Home.this,uri);
         recyclerviewimg.setLayoutManager(imglayout);
         recyclerviewimg.setAdapter(imageAdapter);
 
@@ -382,13 +397,27 @@ public class Fragment_Home extends BaseFragment {
         imageAdapter.notifyDataSetChanged();
         txProduct.setText(product.getNameproduct());
         txtProduct.setText(product.getNameproduct());
-        txtnameshop.setText("Shop:"+product.getNameshop());
+        txtnameshop.setText("Tên shop:"+product.getNameshop());
         txtprice.setText("đ"+product.getPriceproduct());
+        txtloai.setText(product.getLoaisp());
+        txttrangthai.setText(product.getStatus());
+        txttinhtrang.setText(product.getLovestatus());
+        txtmota.setText(product.getDescribe());
+        txtsoluong.setText(product.getSoluong());
+        String idsp=product.getIdsp();
 
+        String thoigia=product.getThoigian();
+        Calendar calendar=Calendar.getInstance();
+        int date= (int) ((calendar.getTimeInMillis()-Long.valueOf(thoigia))/(1000*60*60*24))+1;
+        if (date==0){
+            txtdate.setText("Hôm nay");
+        }else if (date<=30){
+            txtdate.setText(date+"ngày");
+        }else {
 
+        }
 
         dialog.show();
     }
-
 
 }

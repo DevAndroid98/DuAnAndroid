@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 import com.tinhduchung.dev.poly.duanandroid.R;
+import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Home;
 import com.tinhduchung.dev.poly.duanandroid.hodel.ImageViewHodel;
 import com.tinhduchung.dev.poly.duanandroid.model.ImageModel;
 
@@ -18,10 +19,10 @@ import java.util.ArrayList;
 
 public class ImageAdapter  extends RecyclerView.Adapter<ImageViewHodel> {
 
-     private Context context;
+     private Fragment_Home context;
      private ArrayList<String> uri;
 
-    public ImageAdapter(Context context, ArrayList<String> models) {
+    public ImageAdapter(Fragment_Home context, ArrayList<String> models) {
         this.context = context;
         this.uri = models;
     }
@@ -34,9 +35,14 @@ public class ImageAdapter  extends RecyclerView.Adapter<ImageViewHodel> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHodel holder, int position) {
-
+    public void onBindViewHolder(@NonNull ImageViewHodel holder, final int position) {
         Picasso.get().load(uri.get(position)).into(holder.img);
+//      holder.itemView.setOnClickListener(new View.OnClickListener() {
+//          @Override
+//          public void onClick(View v) {
+//              context.getposition(position,uri.size());
+//          }
+//      });
 
     }
 

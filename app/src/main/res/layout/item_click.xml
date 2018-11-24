@@ -111,6 +111,15 @@
                    android:layout_width="match_parent"
                    android:layout_height="match_parent">
                </android.support.v7.widget.RecyclerView>
+
+               <TextView
+                   android:textColor="@color/greenPrimary"
+                   android:id="@+id/posion"
+                   android:layout_marginTop="160dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   />
            </RelativeLayout>
            <LinearLayout
                android:layout_below="@id/top"
@@ -129,7 +138,8 @@
                        android:layout_height="match_parent"
                        android:orientation="vertical">
                        <TextView
-                           android:textSize="20sp"
+                           android:textStyle="bold"
+                           android:textSize="18sp"
                            android:id="@+id/txProduct"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
@@ -215,6 +225,8 @@
                                    android:layout_height="50dp"
                                    android:layout_weight="1"/>
                                <TextView
+                                   android:id="@+id/txtloai"
+                                   android:textColor="@color/greenPrimary"
                                    android:gravity="center"
                                    android:text="Quần áo nam"
                                    android:layout_width="0dp"
@@ -241,6 +253,8 @@
                                    android:layout_height="50dp"
                                    android:layout_weight="1"/>
                                <TextView
+                                   android:id="@+id/txttinhtrang"
+                                   android:textColor="@color/greenPrimary"
                                    android:gravity="center"
                                    android:text="Mới 100%"
                                    android:layout_width="0dp"
@@ -267,10 +281,68 @@
                                    android:layout_height="50dp"
                                    android:layout_weight="1"/>
                                <TextView
+                                   android:id="@+id/txttrangthai"
+                                   android:textColor="@color/greenPrimary"
                                    android:gravity="center"
                                    android:text="Có sẵn"
                                    android:layout_width="0dp"
                                    android:layout_height="50dp"
+                                   android:layout_weight="2"/>
+                           </LinearLayout>
+                       </android.support.v7.widget.CardView>
+
+                       <android.support.v7.widget.CardView
+                           android:layout_marginTop="1dp"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           >
+                           <LinearLayout
+                               android:layout_width="match_parent"
+                               android:layout_height="50dp"
+                               android:orientation="horizontal">
+                               <TextView
+
+                                   android:background="@color/white"
+                                   android:gravity="center"
+                                   android:text="Số lượng"
+                                   android:layout_width="0dp"
+                                   android:layout_height="50dp"
+                                   android:layout_weight="1"/>
+                               <TextView
+                                   android:id="@+id/txtsoluong"
+                                   android:textColor="@color/greenPrimary"
+                                   android:gravity="center"
+                                   android:text="100"
+                                   android:layout_width="0dp"
+                                   android:layout_height="50dp"
+                                   android:layout_weight="2"/>
+                           </LinearLayout>
+                       </android.support.v7.widget.CardView>
+
+                       <android.support.v7.widget.CardView
+                           android:layout_marginTop="1dp"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           >
+                           <LinearLayout
+                               android:layout_width="match_parent"
+                               android:layout_height="100dp"
+                               android:orientation="horizontal">
+                               <TextView
+
+                                   android:background="@color/white"
+                                   android:gravity="center"
+                                   android:text="Mô tả"
+                                   android:layout_width="0dp"
+                                   android:layout_height="100dp"
+                                   android:layout_weight="1"/>
+                               <TextView
+                                   android:id="@+id/txtmota"
+                                   android:textColor="@color/greenPrimary"
+                                   android:gravity="center"
+                                   android:text="Đẹp"
+                                   android:layout_width="0dp"
+                                   android:layout_height="100dp"
                                    android:layout_weight="2"/>
                            </LinearLayout>
                        </android.support.v7.widget.CardView>

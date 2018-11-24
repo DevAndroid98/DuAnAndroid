@@ -82,11 +82,12 @@ public class User {
         public String idsp;
         public String uri;
         public String loaisp;
-
+        public String soluong;
+        public String thoigian;
         public Product() {
         }
 
-        public Product(String nameshop, String nameproduct, String priceproduct, String colorproduct, String lovestatus, String status, String describe, String idsp, String uri, String loaisp) {
+        public Product(String nameshop, String nameproduct, String priceproduct, String colorproduct, String lovestatus, String status, String describe, String idsp, String uri, String loaisp, String soluong, String thoigian) {
             this.nameshop = nameshop;
             this.nameproduct = nameproduct;
             this.priceproduct = priceproduct;
@@ -97,6 +98,8 @@ public class User {
             this.idsp = idsp;
             this.uri = uri;
             this.loaisp = loaisp;
+            this.soluong = soluong;
+            this.thoigian = thoigian;
         }
 
         public String getNameshop() {
@@ -177,6 +180,22 @@ public class User {
 
         public void setLoaisp(String loaisp) {
             this.loaisp = loaisp;
+        }
+
+        public String getSoluong() {
+            return soluong;
+        }
+
+        public void setSoluong(String soluong) {
+            this.soluong = soluong;
+        }
+
+        public String getThoigian() {
+            return thoigian;
+        }
+
+        public void setThoigian(String thoigian) {
+            this.thoigian = thoigian;
         }
     }
     public static class Uriimg{

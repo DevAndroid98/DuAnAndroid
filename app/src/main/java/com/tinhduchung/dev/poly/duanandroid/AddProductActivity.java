@@ -296,6 +296,7 @@ public class AddProductActivity extends AppCompatActivity {
                         String nameproduc = edtTensp.getText().toString().trim();
                         String price = edtGia.getText().toString().trim();
                         String des = edtMota.getText().toString().trim();
+                        String soluong=edtSoluong.getText().toString().trim();
                         final String neww=sharedPreferences.getString("new","");
                         String statuss=sharedPreferences.getString("status","");
                         if (listLoai.get(position).equalsIgnoreCase("Chọn loại")){
@@ -308,6 +309,9 @@ public class AddProductActivity extends AppCompatActivity {
                             return;
                         }
                         if (price.equals("")){
+                            return;
+                        }
+                        if (soluong.equals("")){
                             return;
                         }
                         if (des.equals("")){
@@ -326,7 +330,7 @@ public class AddProductActivity extends AppCompatActivity {
                             return;
                         }
                         Calendar calendar=Calendar.getInstance();
-                        User.Product product=new User.Product(nameshop,nameproduc,price,data,neww,statuss,des,"sp:"+calendar.getTimeInMillis(),uri.get(0),listLoai.get(position));
+                        User.Product product=new User.Product(nameshop,nameproduc,price,data,neww,statuss,des,"sp:"+calendar.getTimeInMillis(),uri.get(0),listLoai.get(position),soluong,String.valueOf(calendar.getTimeInMillis()));
 
                         List<String> sp=new ArrayList<>();
                         sp.clear();
