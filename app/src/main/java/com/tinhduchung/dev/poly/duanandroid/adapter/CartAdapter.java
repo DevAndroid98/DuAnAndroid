@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.tinhduchung.dev.poly.duanandroid.R;
@@ -21,6 +23,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
     private Fragment_Cart context;
     private ArrayList<User.Product> products;
     private ArrayList<User.cartsp> cartsps;
+    private ArrayList<Integer> integers=new ArrayList<>();
 
     public CartAdapter(Fragment_Cart context, ArrayList<User.Product> products, ArrayList<User.cartsp> cartsps) {
         this.context = context;
@@ -36,14 +39,69 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartHolder holder, int position) {
-         User.Product product=products.get(position);
+    public void onBindViewHolder(@NonNull final CartHolder holder, final int position) {
+         final User.Product product=products.get(position);
          holder.txtColor.setText(product.getColorproduct());
-         holder.txtgia.setText(product.getPriceproduct());
+         holder.txtgia.setText(Double.parseDouble(product.getPriceproduct())*Double.parseDouble(cartsps.get(position).getSoluong())+"đ");
          holder.txtnameproduct.setText(product.getNameproduct());
          holder.txtnameshop.setText(product.getNameshop());
          holder.txtsoluong.setText(cartsps.get(position).getSoluong());
          Picasso.get().load(product.getUri()).into(holder.imgnameproduct);
+         holder.themsl.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 context.themcart(cartsps.get(position),position);
+                 int i=Integer.parseInt(cartsps.get(position).getSoluong())+1;
+                 cartsps.set(position,new User.cartsp(cartsps.get(position).getIdsp(),(String.valueOf(i))));
+
+             }
+         });
+         integers.clear();
+
+         holder.cbok.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+             @Override
+             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                 if (isChecked){
+                     //double tongtien=Double.parseDouble(product.getPriceproduct())*Double.parseDouble(cartsps.get(position).getSoluong());
+                     //context.tongtien(tongtien+"đ");
+                     double tongtien = 0;
+                      integers.add(position);
+                      for (Integer i:integers){
+                         tongtien+=Double.parseDouble(products.get(i).getPriceproduct())*Double.parseDouble(cartsps.get(i).getSoluong());
+                      }
+                      context.tongtien(tongtien+"đ");
+
+                     }else {
+                     double tongtien = 0;
+                     for (int i=0;i<integers.size();i++){
+                         if (position==integers.get(i)){
+                             integers.remove(i);
+                         }
+                     }
+                     for (Integer i:integers){
+                         tongtien+=Double.parseDouble(products.get(i).getPriceproduct())*Double.parseDouble(cartsps.get(i).getSoluong());
+                     }
+                     context.tongtien(tongtien+"đ");
+                 }
+             }
+         });
+
+        holder.trusl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i=Integer.parseInt(cartsps.get(position).getSoluong());
+                if (i==1){
+                    Toast.makeText(context.getActivity(), "Sô lượng ít nhất là 1", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (i>1){
+                    context.trucart(cartsps.get(position),position);
+                    int b=Integer.parseInt(cartsps.get(position).getSoluong())-1;
+                    cartsps.set(position,new User.cartsp(cartsps.get(position).getIdsp(),(String.valueOf(b))));
+                }
+
+            }
+        });
     }
 
     @Override
@@ -79,4 +137,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
             txtgia = itemView.findViewById(R.id.txtgia);
         }
     }
+
+
 }
