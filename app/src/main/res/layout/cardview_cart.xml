@@ -20,6 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/txtnameshop"
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -29,7 +30,7 @@
             <ImageView
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/btdeletecart"
+                android:id="@+id/btndeletecart"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_delete_cart"
                 android:layout_width="25dp"
@@ -43,6 +44,7 @@
 
 
             <ImageView
+                android:id="@+id/imgnameproduct"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:src="@drawable/ic_picture" />
@@ -56,21 +58,53 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtnameproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/name_product" />
 
                 <TextView
+                    android:id="@+id/txtColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="@string/colorname" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="@string/amount" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_weight="1"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/amount" />
+
+                    <ImageView
+                        android:id="@+id/trusl"
+                        android:src="@drawable/ic_tru"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/txtsoluong"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:text="1"
+                        android:layout_weight="0.5"/>
+
+                    <ImageView
+                        android:id="@+id/themsl"
+                        android:src="@drawable/ic_cong"
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"/>
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -79,10 +113,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/greenPrimary"
+                    android:id="@+id/txtgia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
