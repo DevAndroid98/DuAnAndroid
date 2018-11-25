@@ -42,7 +42,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
        holder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               context.clickproduct(product,position);
+               context.clickproduct(product);
            }
        });
     }

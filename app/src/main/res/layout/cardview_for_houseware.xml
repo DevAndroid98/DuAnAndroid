@@ -34,7 +34,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/btnMoreman"
+                android:id="@+id/btnMorehouse"
                 android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"

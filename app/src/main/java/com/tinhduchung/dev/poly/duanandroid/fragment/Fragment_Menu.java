@@ -82,7 +82,7 @@ public class Fragment_Menu extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_menu,container,false);
+        view = inflater.inflate(R.layout.fragment_menu,container, false);
         intent = getActivity().getIntent();
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://onlinestore-3ac1a.appspot.com");
@@ -100,7 +100,9 @@ public class Fragment_Menu extends BaseFragment {
         if (provice == null) {
             btnLogin.setVisibility(View.VISIBLE);
             cvAddProduct.setAlpha(0.5f);
+            cvManage.setAlpha(0.5f);
             cvAddProduct.setClickable(false);
+            cvManage.setClickable(false);
             cvUserinfor.setAlpha(0.5f);
             cvUserinfor.setClickable(false);
             btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -113,8 +115,10 @@ public class Fragment_Menu extends BaseFragment {
             });
         } else {
             cvAddProduct.setAlpha(1);
+            cvManage.setAlpha(1);
             cvUserinfor.setAlpha(1);
             cvUserinfor.setClickable(true);
+            cvManage.setClickable(true);
             cvAddProduct.setClickable(true);
             if (provice.equals("facebook.com")) {
                 mDatabase.child("id").child("User").child(id).child("user").child("info").addChildEventListener(new ChildEventListener() {
@@ -269,6 +273,7 @@ public class Fragment_Menu extends BaseFragment {
         cvManageProduct = view.findViewById(R.id.cvManage);
         cvHelp =  view.findViewById(R.id.cvHelp);
         cvQuit = view.findViewById(R.id.cvQuit);
+        cvManage=view.findViewById(R.id.cvManage);
     }
 
     public void dialog() {

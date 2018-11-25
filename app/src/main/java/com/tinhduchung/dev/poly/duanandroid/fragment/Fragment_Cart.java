@@ -64,12 +64,13 @@ public class Fragment_Cart extends BaseFragment {
         loading = view.findViewById(R.id.loading);
         scrollView = view.findViewById(R.id.scrollView);
         loading.setVisibility(View.VISIBLE);
-        scrollView.setAlpha(0.2f);
+        scrollView.setAlpha(0.5f);
         cartAdapter = new CartAdapter(Fragment_Cart.this, products, giohangArray);
         recyclerviewcart.setLayoutManager(linearLayoutManager);
         recyclerviewcart.setHasFixedSize(true);
         recyclerviewcart.setAdapter(cartAdapter);
         getcart();
+
 
 
         return view;
@@ -80,6 +81,7 @@ public class Fragment_Cart extends BaseFragment {
             giohangArray.clear();
             products.clear();
             idspham.clear();
+
             mDatabase.child("id").child("User").child(id).child("cart").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

@@ -30,6 +30,7 @@ public class BaseFragment extends Fragment {
     public LinearLayout cvManageProduct;
     public LinearLayout cvHelp;
     public LinearLayout cvQuit;
+    public LinearLayout cvManage;
 
 
 

@@ -63,10 +63,16 @@ public class GridAdapter extends BaseAdapter {
         imgProduct =  v.findViewById(R.id.btn_product);
         tvNameproduct =  v.findViewById(R.id.tvNameproduct);
         tvPrice =  v.findViewById(R.id.tvPrice);
-        User.Product product=products.get(position);
+        final User.Product product=products.get(position);
         tvNameproduct.setText(product.getNameproduct());
         tvPrice.setText("Giá:"+product.getPriceproduct()+"\tVND");
         Picasso.get().load(product.getUri()).resize(300,300).centerCrop(Gravity.TOP).into(imgProduct);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.clickproduct(product);
+            }
+        });
         return v;
     }
 }

@@ -102,6 +102,18 @@ public class Fragment_Home extends BaseFragment {
     private  ImageView giohang;
     private  LinearLayout layout;
 
+    private TextView btnMoregirl;
+    private TextView btnMorephone;
+    private TextView btnMorehouse;
+    private TextView btnMorenew;
+
+
+
+
+
+
+
+
 
 
 
@@ -144,6 +156,31 @@ public class Fragment_Home extends BaseFragment {
                 reviews();
             }
         });
+        btnMoregirl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewsgirl();
+            }
+        });
+        btnMorephone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewsphone();
+            }
+        });
+        btnMorehouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewshouse();
+            }
+        });
+        btnMorenew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewsview();
+            }
+        });
+
         return view;
     }
 
@@ -160,8 +197,10 @@ public class Fragment_Home extends BaseFragment {
         recyclerviewProductHouseware = view.findViewById(R.id.recyclerviewProductHouseware);
         recyclerviewProductnew = view.findViewById(R.id.recycylerviewnew);
         btnMoreman =view.findViewById(R.id.btnMoreman);
-
-
+        btnMoregirl = view.findViewById(R.id.btnMoregirl);
+        btnMorephone =view.findViewById(R.id.btnMorephone);
+        btnMorehouse = view.findViewById(R.id.btnMorehouse);
+        btnMorenew =view.findViewById(R.id.btnMorenew);
     }
 
 
@@ -292,47 +331,7 @@ public class Fragment_Home extends BaseFragment {
     }
 
 
-    public void getproductboy(){
-         products.clear();
 
-            mDatabase.child("id").addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-               //     products.add(0,product);
-//                    productAdapter.notifyDataSetChanged();
-//                    Log.e("SIZE",products.size()+"");
-                   Log.e("TAG",dataSnapshot.toString());
-
-
-
-                    }
-                    @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-
-
-
-
-    }
 
     public void reviews(){
 
@@ -350,7 +349,9 @@ public class Fragment_Home extends BaseFragment {
         wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(wlp);
         ImageView left;
-
+        TextView textView;
+        textView=dialog.findViewById(R.id.nameshop);
+        textView.setText("Dành cho nam");
           left =  dialog.findViewById(R.id.left);
            left.setOnClickListener(new View.OnClickListener() {
                @Override
@@ -359,7 +360,7 @@ public class Fragment_Home extends BaseFragment {
                }
            });
            GridView gif=dialog.findViewById(R.id.gif);
-           gridAdapter=new GridAdapter(Fragment_Home.this,products);
+           gridAdapter=new GridAdapter(Fragment_Home.this, products);
            gif = dialog.findViewById(R.id.gif);
            gif.setAdapter(gridAdapter);
 
@@ -368,8 +369,149 @@ public class Fragment_Home extends BaseFragment {
 
     }
 
+    public void reviewsgirl(){
 
-    public void clickproduct(final User.Product product, int prosion){
+        final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.item_for_boy);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
+
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
+        ImageView left;
+        TextView textView;
+        textView=dialog.findViewById(R.id.nameshop);
+        textView.setText("Dành cho nữ");
+        left =  dialog.findViewById(R.id.left);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        GridView gif=dialog.findViewById(R.id.gif);
+        gridAdapter=new GridAdapter(Fragment_Home.this,productsgirl);
+        gif = dialog.findViewById(R.id.gif);
+        gif.setAdapter(gridAdapter);
+
+
+        dialog.show();
+
+    }
+    public void reviewsphone(){
+
+        final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.item_for_boy);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
+
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
+        ImageView left;
+        TextView textView;
+        textView=dialog.findViewById(R.id.nameshop);
+        textView.setText("Điện thoại");
+        left =  dialog.findViewById(R.id.left);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        GridView gif=dialog.findViewById(R.id.gif);
+        gridAdapter=new GridAdapter(Fragment_Home.this,productsphone);
+        gif = dialog.findViewById(R.id.gif);
+        gif.setAdapter(gridAdapter);
+
+
+        dialog.show();
+
+    }
+    public void reviewshouse(){
+
+        final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.item_for_boy);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
+
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
+        ImageView left;
+        TextView textView;
+        textView=dialog.findViewById(R.id.nameshop);
+        textView.setText("Đồ gia dụng");
+        left =  dialog.findViewById(R.id.left);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        GridView gif=dialog.findViewById(R.id.gif);
+        gridAdapter=new GridAdapter(Fragment_Home.this,productshouse);
+        gif = dialog.findViewById(R.id.gif);
+        gif.setAdapter(gridAdapter);
+
+
+        dialog.show();
+
+    }
+    public void reviewsview(){
+
+        final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.item_for_boy);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
+
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
+        ImageView left;
+        TextView textView;
+        textView=dialog.findViewById(R.id.nameshop);
+        textView.setText("Mới nhất");
+        left =  dialog.findViewById(R.id.left);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        GridView gif=dialog.findViewById(R.id.gif);
+        gridAdapter=new GridAdapter(Fragment_Home.this,productnew);
+        gif = dialog.findViewById(R.id.gif);
+        gif.setAdapter(gridAdapter);
+
+
+        dialog.show();
+
+    }
+
+
+    public void clickproduct(final User.Product product){
         final Dialog dialog=new Dialog(getActivity(),R.style.PauseDialog1);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.item_click);
