@@ -53,6 +53,7 @@ public class Fragment_Cart extends BaseFragment {
     private Dialog dialog;
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,9 +71,6 @@ public class Fragment_Cart extends BaseFragment {
         recyclerviewcart.setHasFixedSize(true);
         recyclerviewcart.setAdapter(cartAdapter);
         getcart();
-
-
-
         return view;
     }
 

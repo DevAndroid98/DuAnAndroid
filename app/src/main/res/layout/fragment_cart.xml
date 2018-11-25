@@ -11,6 +11,8 @@
         android:src="@drawable/img_loading"
         android:visibility="invisible"
         android:layout_centerInParent="true"/>
+
+
     <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
