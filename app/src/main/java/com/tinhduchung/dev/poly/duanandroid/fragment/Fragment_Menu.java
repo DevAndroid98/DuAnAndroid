@@ -82,7 +82,7 @@ public class Fragment_Menu extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_menu, container, false);
+        view = inflater.inflate(R.layout.fragment_menu,container,false);
         intent = getActivity().getIntent();
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://onlinestore-3ac1a.appspot.com");

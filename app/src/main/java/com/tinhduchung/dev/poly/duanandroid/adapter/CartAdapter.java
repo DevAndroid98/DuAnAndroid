@@ -50,9 +50,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
          holder.themsl.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 context.themcart(cartsps.get(position),position);
                  int i=Integer.parseInt(cartsps.get(position).getSoluong())+1;
-                 cartsps.set(position,new User.cartsp(cartsps.get(position).getIdsp(),(String.valueOf(i))));
+                 if (i<=Integer.parseInt(product.getSoluong())){
+                     context.themcart(cartsps.get(position),position);
+                     cartsps.set(position,new User.cartsp(cartsps.get(position).getIdsp(),(String.valueOf(i)))); 
+                 }else {
+                     Toast.makeText(context.getActivity(), "Không đủ số lượng", Toast.LENGTH_SHORT).show();
+                 }
+                 
 
              }
          });
@@ -62,7 +67,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
              @Override
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                  if (isChecked){
-
                      double tongtien = 0;
                       integers.add(position);
                       for (Integer i:integers){
