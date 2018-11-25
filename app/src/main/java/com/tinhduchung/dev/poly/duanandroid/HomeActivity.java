@@ -168,6 +168,6 @@ public class HomeActivity extends BaseActivity {
                     Log.e("KEY","d");
                 }
             }) ;
-        }
+            }
     }
 }

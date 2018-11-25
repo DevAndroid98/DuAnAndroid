@@ -1,6 +1,8 @@
 package com.tinhduchung.dev.poly.duanandroid.fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +28,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tinhduchung.dev.poly.duanandroid.HomeActivity;
+import com.tinhduchung.dev.poly.duanandroid.LoginActivity;
 import com.tinhduchung.dev.poly.duanandroid.R;
 import com.tinhduchung.dev.poly.duanandroid.adapter.CartAdapter;
 import com.tinhduchung.dev.poly.duanandroid.user.User;
@@ -46,12 +50,7 @@ public class Fragment_Cart extends BaseFragment {
     private CartAdapter cartAdapter;
     private ScrollView scrollView;
     private GifImageView loading;
-    private CardView cart;
-    private TextView pricetong;
-    private Button btnxacnhan;
-
-
-
+    private Dialog dialog;
 
 
     @Nullable
@@ -64,9 +63,6 @@ public class Fragment_Cart extends BaseFragment {
         recyclerviewcart = view.findViewById(R.id.recyclerviewcart);
         loading = view.findViewById(R.id.loading);
         scrollView = view.findViewById(R.id.scrollView);
-        cart =  view.findViewById(R.id.cart);
-        pricetong =  view.findViewById(R.id.pricetong);
-        btnxacnhan =  view.findViewById(R.id.btnxacnhan);
         loading.setVisibility(View.VISIBLE);
         scrollView.setAlpha(0.2f);
         cartAdapter = new CartAdapter(Fragment_Cart.this, products, giohangArray);
@@ -204,9 +200,63 @@ public class Fragment_Cart extends BaseFragment {
     }
 
 
-    public void tongtien(String tongtien){
-        cart.setVisibility(View.VISIBLE);
+    public void tongtien(String tongtien) {
+         dialog=new Dialog(getActivity(),R.style.CustomDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_tinhtien);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+
+
+        TextView pricetong;
+        Button btnxacnhan;
+        pricetong =  dialog.findViewById(R.id.pricetong);
+        btnxacnhan =  dialog.findViewById(R.id.btnxacnhan);
+
         pricetong.setText(tongtien);
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(wlp);
+        dialog.show();
+    }
+
+    public void deletesp(final int posion, String tensp, final int size){
+        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        builder.setTitle("Thông báo");
+        builder.setMessage("Bạn có muốn xóa sản phẩm\t"+tensp+"\tkhỏi giỏ hàng không?");
+        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+            });
+
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                loading.setVisibility(View.VISIBLE);
+                scrollView.setAlpha(0.2f);
+                mDatabase.child("id").child("User").child(id).child("cart").child(idspham.get(posion)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        loading.setVisibility(View.INVISIBLE);
+                        scrollView.setAlpha(1f);
+                        getcart();
+                        cartAdapter.notifyDataSetChanged();
+                        if (size==1){
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                            getActivity().finish();
+                        }
+                    }
+                });
+
+            }
+        });
+
+        builder.show();
+
     }
 
 

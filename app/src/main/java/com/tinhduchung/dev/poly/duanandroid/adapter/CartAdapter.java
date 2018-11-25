@@ -62,8 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
              @Override
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                  if (isChecked){
-                     //double tongtien=Double.parseDouble(product.getPriceproduct())*Double.parseDouble(cartsps.get(position).getSoluong());
-                     //context.tongtien(tongtien+"đ");
+
                      double tongtien = 0;
                       integers.add(position);
                       for (Integer i:integers){
@@ -100,6 +99,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                     cartsps.set(position,new User.cartsp(cartsps.get(position).getIdsp(),(String.valueOf(b))));
                 }
 
+            }
+        });
+
+        holder.btndeletecart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.deletesp(position,product.getNameproduct(),products.size());
             }
         });
     }
