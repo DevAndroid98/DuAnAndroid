@@ -1,49 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/greenPrimary">
-    
-    <android.support.v7.widget.CardView
-        android:id="@+id/xxx"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="3dp"
-        android:elevation="3dp"
-        android:layout_margin="7dp"
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbaraa"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/xx"
-                android:layout_alignParentLeft="true"
-                android:layout_margin="10dp"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_seach"/>
+        android:layout_height="wrap_content"
+        android:background="@color/greenPrimary"
+        app:layout_scrollFlags="scroll|enterAlways" />
 
-            <TextView
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:id="@+id/edtSearch"
-                android:layout_margin="1dp"
-                android:hint="@string/seach"
-                android:textColorHint="@android:color/darker_gray"
-                android:backgroundTint="@color/white"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@id/xx"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"/>
-            
-        </RelativeLayout>
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:searchBackground="@color/colorPrimary"
+        app:searchSuggestionBackground="@color/colorPrimary"
+        app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"
+        app:searchBackIcon="@drawable/ic_action_navigation_arrow_back_inverted"
+        app:searchSuggestionIcon="@drawable/ic_suggestion"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        />
 
-    </android.support.v7.widget.CardView>
-    
-    
-
-</LinearLayout>
+    <ListView
+        android:visibility="gone"
+        android:id="@+id/lstView"
+        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/toolbaraa"
+        android:divider="#806326"
+        android:dividerHeight="1dp"
+        />
+</RelativeLayout>

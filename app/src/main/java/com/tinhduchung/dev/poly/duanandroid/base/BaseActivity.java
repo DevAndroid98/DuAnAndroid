@@ -26,7 +26,7 @@ import com.roughike.bottombar.BottomBarTab;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     //Biến màn hình HomeActivity
     public Animation animationIMG;
@@ -67,6 +67,8 @@ public class BaseActivity extends AppCompatActivity {
     public EditText edtphone;
     public Button btnlogin;
     public String idcode;
+
+
 
 
     //Biến của màn hình AddProduct

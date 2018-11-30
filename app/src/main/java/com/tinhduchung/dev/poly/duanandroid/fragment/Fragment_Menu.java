@@ -47,6 +47,7 @@ import com.tinhduchung.dev.poly.duanandroid.AccountInformationActivity;
 import com.tinhduchung.dev.poly.duanandroid.AddProductActivity;
 import com.tinhduchung.dev.poly.duanandroid.HomeActivity;
 import com.tinhduchung.dev.poly.duanandroid.LoginActivity;
+import com.tinhduchung.dev.poly.duanandroid.ProductManagementActivity;
 import com.tinhduchung.dev.poly.duanandroid.R;
 import com.tinhduchung.dev.poly.duanandroid.SplashScreen;
 import com.tinhduchung.dev.poly.duanandroid.SupportActivity;
@@ -257,6 +258,21 @@ public class Fragment_Menu extends BaseFragment {
             }
 
         }
+        cvManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(new Intent(getActivity(), ProductManagementActivity.class));
+                intent.putExtra("name", name);
+                intent.putExtra("phone",phone);
+                intent.putExtra("uri", uri);
+                intent.putExtra("id", id);
+                intent.putExtra("provider",provice);
+                intent.putExtra("address",address);
+                intent.putExtra("email",email);
+                intent.putExtra("gender",gender);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

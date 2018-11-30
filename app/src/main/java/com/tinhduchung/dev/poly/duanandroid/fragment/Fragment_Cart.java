@@ -219,6 +219,12 @@ public class Fragment_Cart extends BaseFragment {
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
         wlp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(wlp);
+        btnxacnhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Đang phát triển", Toast.LENGTH_SHORT).show();
+            }
+        });
         dialog.show();
     }
 

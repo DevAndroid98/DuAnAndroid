@@ -10,13 +10,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Cart;
@@ -25,25 +32,46 @@ import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Menu;
 import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Notification;
 import com.tinhduchung.dev.poly.duanandroid.user.User;
 
+
+
+
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
+
 
 import spencerstudios.com.bungeelib.Bungee;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements android.support.v7.widget.Toolbar.OnMenuItemClickListener {
     private DatabaseReference mDatabase;
     private ArrayList<User.cartsp> giohangArray = new ArrayList<>();
+    private ArrayList<User.Product> products = new ArrayList<>();
     private String id="";
+    private FloatingSearchView floatingSearchView;
+    List<String>  strings=new ArrayList<>();
+
+    private ListView listView;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bungee.zoom(this);
+        floatingSearchView=findViewById(R.id.floating_search_view);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Intent intent=getIntent();
         id=intent.getStringExtra("id");
+        getnamproduct();
+        strings.clear();
+        for (int i=0;i<products.size();i++){
+            strings.add(products.get(i).getNameproduct());
+            }
+
+
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.tinhduchung.dev.poly.duanandroid",
@@ -65,7 +93,7 @@ public class HomeActivity extends BaseActivity {
 
     //ánh xạ view
     private void mapped() {
-        edtSearch = findViewById(R.id.edtSearch);
+
         bottomBar = findViewById(R.id.bottomBar);
         nearby = bottomBar.getTabWithId(R.id.tab_cart);
         nearby1 = bottomBar.getTabWithId(R.id.tab_home);
@@ -77,28 +105,30 @@ public class HomeActivity extends BaseActivity {
     //các sự kiện click
 
     private void onclickView() {
-        edtSearch.setOnClickListener(new View.OnClickListener() {
+
+        floatingSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
-            public void onClick(View v) {
-                edtSearch.setText("");
-                edtSearch.setHint(R.string.seach_store);
+            public void onSearchTextChanged(String oldQuery, String newQuery) {
+                List<String> lstFound = new ArrayList<String>();
+              if (oldQuery!=null&& !oldQuery.isEmpty()){
+                  for(String item:strings){
+                      if(item.contains(oldQuery))
+                          lstFound.add(item);
+                  }
+                  Log.e("SIZE",strings.size()+"");
+                  ArrayAdapter adapter = new ArrayAdapter(HomeActivity.this,android.R.layout.simple_list_item_1,lstFound);
+
+              }
 
             }
         });
+
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(int tabId) {
                 fragment(tabId);
             }
         });
-    }
-
-    //thông báo của bottom navigation
-
-    private void notification() {
-
-        nearby2.setBadgeCount(60);
-        nearby3.setBadgeCount(1);
     }
 
     //bottom cilck chuyển đổi giữa các fragment
@@ -169,5 +199,83 @@ public class HomeActivity extends BaseActivity {
                 }
             }) ;
             }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
+
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return false;
+    }
+
+    private void getnamproduct(){
+        products.clear();
+        mDatabase.child("id").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
+                if (dataSnapshot.getKey() !=null && dataSnapshot.getKey().startsWith("sp:")) {
+                    mDatabase.child("id").child(dataSnapshot.getKey()).child("product").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                            User.Product product=dataSnapshot.getValue(User.Product.class);
+                            products.add(product);
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

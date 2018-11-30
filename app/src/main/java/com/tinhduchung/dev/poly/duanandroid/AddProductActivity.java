@@ -89,8 +89,8 @@ public class AddProductActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference storageRef;
     private FirebaseStorage storage;
-   private SharedPreferences sharedPreferences;
-   private SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private Adapter adapter;
     private int i = 0;
     private ArrayList<String> uri = new ArrayList<>();
@@ -100,7 +100,8 @@ public class AddProductActivity extends AppCompatActivity {
     private List<ColorModel> models = new ArrayList<>();
 
     private List<String> listcolor = new ArrayList<>();
-    private  String data="";
+    private String data = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,7 +136,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     private void mapped() {
-        sharedPreferences=getSharedPreferences("Data",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Data", MODE_PRIVATE);
         layout = findViewById(R.id.layout);
         edtTenshop = findViewById(R.id.edt_tenshop);
         recyclerviewimg = findViewById(R.id.recyclerviewimg);
@@ -163,7 +164,7 @@ public class AddProductActivity extends AppCompatActivity {
                 btnChonmau.setTextColor(R.color.greenDark);
                 btnChonmau.setTextSize(10f);
                 addlistcolor();
-                }
+            }
         });
 
         btnTinhtrang.setOnClickListener(new View.OnClickListener() {
@@ -296,47 +297,47 @@ public class AddProductActivity extends AppCompatActivity {
                         String nameproduc = edtTensp.getText().toString().trim();
                         String price = edtGia.getText().toString().trim();
                         String des = edtMota.getText().toString().trim();
-                        String soluong=edtSoluong.getText().toString().trim();
-                        final String neww=sharedPreferences.getString("new","");
-                        String statuss=sharedPreferences.getString("status","");
-                        if (listLoai.get(position).equalsIgnoreCase("Chọn loại")){
+                        String soluong = edtSoluong.getText().toString().trim();
+                        final String neww = sharedPreferences.getString("new", "");
+                        String statuss = sharedPreferences.getString("status", "");
+                        if (listLoai.get(position).equalsIgnoreCase("Chọn loại")) {
                             return;
                         }
-                        if (nameshop.equals("")){
+                        if (nameshop.equals("")) {
                             return;
                         }
-                        if (nameproduc.equals("")){
+                        if (nameproduc.equals("")) {
                             return;
                         }
-                        if (price.equals("")){
+                        if (price.equals("")) {
                             return;
                         }
-                        if (soluong.equals("")){
+                        if (soluong.equals("")) {
                             return;
                         }
-                        if (des.equals("")){
+                        if (des.equals("")) {
                             return;
                         }
-                        if (uri.isEmpty()){
+                        if (uri.isEmpty()) {
                             return;
                         }
-                        if (listcolor.isEmpty()){
+                        if (listcolor.isEmpty()) {
                             return;
                         }
-                        if (neww.equals("")){
+                        if (neww.equals("")) {
                             return;
                         }
-                        if(statuss.equals("")){
+                        if (statuss.equals("")) {
                             return;
                         }
-                        Calendar calendar=Calendar.getInstance();
-                        User.Product product=new User.Product(nameshop,nameproduc,price,data,neww,statuss,des,"sp:"+calendar.getTimeInMillis(),uri.get(0),listLoai.get(position),soluong,String.valueOf(calendar.getTimeInMillis()));
+                        Calendar calendar = Calendar.getInstance();
+                        User.Product product = new User.Product(nameshop, nameproduc, price, data, neww, statuss, des, "sp:" + calendar.getTimeInMillis(), uri.get(0), listLoai.get(position), soluong, String.valueOf(calendar.getTimeInMillis()));
 
-                        List<String> sp=new ArrayList<>();
+                        List<String> sp = new ArrayList<>();
                         sp.clear();
-                        List<User.Id> ids=new ArrayList<>();
-                        ids.add(new User.Id("sp:"+calendar.getTimeInMillis()));
-                        sp.add("sp:"+calendar.getTimeInMillis());
+                        List<User.Id> ids = new ArrayList<>();
+                        ids.add(new User.Id("sp:" + calendar.getTimeInMillis()));
+                        sp.add("sp:" + calendar.getTimeInMillis());
                         mDatabase.child("id").child("User").child(id).child("user").child("idsp").child(sp.get(0)).setValue(sp.get(0));
                         mDatabase.child("id").child("User").child("sp").child(sp.get(0)).setValue(uri);
                         mDatabase.child("id").child(sp.get(0)).child("product").child("product").setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -344,13 +345,13 @@ public class AddProductActivity extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(AddProductActivity.this, "Đăng thành công", Toast.LENGTH_SHORT).show();
                                 System.exit(0);
-                                startActivity(new Intent(AddProductActivity.this,HomeActivity.class));
+                                startActivity(new Intent(AddProductActivity.this, HomeActivity.class));
                                 finish();
 
                             }
                         });
 
-                        }
+                    }
                 });
 
             }
@@ -412,13 +413,13 @@ public class AddProductActivity extends AppCompatActivity {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                if (listcolor==null){
+                if (listcolor == null) {
                     return;
-                }else {
+                } else {
 
-                    for (int i=0;i<listcolor.size();i++){
-                        data+=listcolor.get(i)+",";
-                        btnChonmau.setText("Màu:"+data);
+                    for (int i = 0; i < listcolor.size(); i++) {
+                        data += listcolor.get(i) + ",";
+                        btnChonmau.setText("Màu:" + data);
                         btnChonmau.setTextColor(R.color.greenDark);
                         btnChonmau.setTextSize(10f);
                     }
@@ -431,97 +432,98 @@ public class AddProductActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void addcolor(int position){
-        boolean a= listcolor.add(models.get(position).getColor());
-        Log.e("TAG",a+"");
-        Log.e("TAG",listcolor.size()+"");
+    public void addcolor(int position) {
+        boolean a = listcolor.add(models.get(position).getColor());
+        Log.e("TAG", a + "");
+        Log.e("TAG", listcolor.size() + "");
+    }
+
+    public void deletecolor(String color) {
+
+        for (int i = 0; i < listcolor.size(); i++) {
+            if (color.equals(listcolor.get(i))) {
+                listcolor.remove(i);
+            }
         }
+        Log.e("TAG", listcolor.size() + "");
+    }
 
-    public void deletecolor(String color){
-
-       for (int i=0;i<listcolor.size();i++){
-           if (color.equals(listcolor.get(i))){
-               listcolor.remove(i);
-           }
-       }
-       Log.e("TAG",listcolor.size()+"");
-       }
-       private void qualitysp(){
-        editor=sharedPreferences.edit();
-           PopupMenu popupMenu=new PopupMenu(this,btnTinhtrang);
-           popupMenu.getMenuInflater().inflate(R.menu.qualitysp,popupMenu.getMenu());
-           popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-               @SuppressLint("ResourceAsColor")
-               @Override
-               public boolean onMenuItemClick(MenuItem item) {
-                   switch (item.getItemId()){
-                       case R.id.new100:
-                           btnTinhtrang.setTextColor(R.color.greenDark);
-                           btnTinhtrang.setTextSize(10f);
-                           btnTinhtrang.setText("Mới 100%");
-                           editor.putString("new","Mới 100%");
-                           editor.commit();
-                           break;
-
-                       case R.id.new90:
-                           btnTinhtrang.setTextColor(R.color.greenDark);
-                           btnTinhtrang.setTextSize(10f);
-                           btnTinhtrang.setText("Mới 90%");
-                           editor.putString("new","Mới 90%");
-                           editor.commit();
-                           break;
-
-                       case R.id.new80:
-                           btnTinhtrang.setTextColor(R.color.greenDark);
-                           btnTinhtrang.setTextSize(10f);
-                           btnTinhtrang.setText("Mới 80%");
-                           editor.putString("new","Mới 80%");
-                           editor.commit();
-                           break;
-
-                       case R.id.new70:
-                           btnTinhtrang.setTextColor(R.color.greenDark);
-                           btnTinhtrang.setTextSize(10f);
-                           btnTinhtrang.setText("Mới 70%");
-                           editor.putString("new","Mới 70%");
-                           editor.commit();
-                           break;
-
-                       case R.id.new50:
-                           btnTinhtrang.setTextColor(R.color.greenDark);
-                           btnTinhtrang.setTextSize(10f);
-                           btnTinhtrang.setText("Mới 50%");
-                           editor.putString("new","Mới 50%");
-                           editor.commit();
-                           break;
-                   }
-                   return true;
-               }
-           });
-           popupMenu.show();
-       }
-
-       private void status(){
-        editor=sharedPreferences.edit();
-        PopupMenu popupMenu=new PopupMenu(this,btnTrangthai);
-        popupMenu.getMenuInflater().inflate(R.menu.status,popupMenu.getMenu());
+    private void qualitysp() {
+        editor = sharedPreferences.edit();
+        PopupMenu popupMenu = new PopupMenu(this, btnTinhtrang);
+        popupMenu.getMenuInflater().inflate(R.menu.qualitysp, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
+                    case R.id.new100:
+                        btnTinhtrang.setTextColor(R.color.greenDark);
+                        btnTinhtrang.setTextSize(10f);
+                        btnTinhtrang.setText("Mới 100%");
+                        editor.putString("new", "Mới 100%");
+                        editor.commit();
+                        break;
+
+                    case R.id.new90:
+                        btnTinhtrang.setTextColor(R.color.greenDark);
+                        btnTinhtrang.setTextSize(10f);
+                        btnTinhtrang.setText("Mới 90%");
+                        editor.putString("new", "Mới 90%");
+                        editor.commit();
+                        break;
+
+                    case R.id.new80:
+                        btnTinhtrang.setTextColor(R.color.greenDark);
+                        btnTinhtrang.setTextSize(10f);
+                        btnTinhtrang.setText("Mới 80%");
+                        editor.putString("new", "Mới 80%");
+                        editor.commit();
+                        break;
+
+                    case R.id.new70:
+                        btnTinhtrang.setTextColor(R.color.greenDark);
+                        btnTinhtrang.setTextSize(10f);
+                        btnTinhtrang.setText("Mới 70%");
+                        editor.putString("new", "Mới 70%");
+                        editor.commit();
+                        break;
+
+                    case R.id.new50:
+                        btnTinhtrang.setTextColor(R.color.greenDark);
+                        btnTinhtrang.setTextSize(10f);
+                        btnTinhtrang.setText("Mới 50%");
+                        editor.putString("new", "Mới 50%");
+                        editor.commit();
+                        break;
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
+
+    private void status() {
+        editor = sharedPreferences.edit();
+        PopupMenu popupMenu = new PopupMenu(this, btnTrangthai);
+        popupMenu.getMenuInflater().inflate(R.menu.status, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
                     case R.id.available:
                         btnTrangthai.setText(R.string.available);
                         btnTrangthai.setTextSize(10f);
                         btnTrangthai.setTextColor(R.color.greenDark);
-                        editor.putString("status","Có sẵn");
+                        editor.putString("status", "Có sẵn");
                         editor.commit();
                         break;
                     case R.id.oder:
                         btnTrangthai.setText(R.string.oder);
                         btnTrangthai.setTextSize(10f);
                         btnTrangthai.setTextColor(R.color.greenDark);
-                        editor.putString("status","Oder");
+                        editor.putString("status", "Oder");
                         editor.commit();
                         break;
                 }
@@ -530,5 +532,5 @@ public class AddProductActivity extends AppCompatActivity {
         });
         popupMenu.show();
 
-       }
+    }
 }

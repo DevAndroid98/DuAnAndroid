@@ -225,7 +225,6 @@ public class Fragment_Home extends BaseFragment {
                         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                             User.Product product=dataSnapshot.getValue(User.Product.class);
                             Log.e("TAG",product.toString());
-                            products.add(0,product);
                             productsgirl.add(0,product);
                             productsphone.add(0,product);
                             productshouse.add(0,product);

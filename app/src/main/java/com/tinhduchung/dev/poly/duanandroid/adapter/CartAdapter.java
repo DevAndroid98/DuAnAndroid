@@ -53,11 +53,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder> {
                  int i=Integer.parseInt(cartsps.get(position).getSoluong())+1;
                  if (i<=Integer.parseInt(product.getSoluong())){
                      context.themcart(cartsps.get(position),position);
-                     cartsps.set(position,new User.cartsp(cartsps.get(position).getIdsp(),(String.valueOf(i)))); 
+                     cartsps.set(position,new User.cartsp(cartsps.get(position).getIdsp(),(String.valueOf(i))));
                  }else {
                      Toast.makeText(context.getActivity(), "Không đủ số lượng", Toast.LENGTH_SHORT).show();
                  }
-                 
+
 
              }
          });
