@@ -47,6 +47,8 @@ public class ProductManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_management);
+        getSupportActionBar().setTitle(R.string.manage_product);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerviewproduct = findViewById(R.id.recyclerviewproduct);
         txtthongbao =  findViewById(R.id.txtthongbao);
         mDatabase = FirebaseDatabase.getInstance().getReference();

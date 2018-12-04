@@ -11,6 +11,9 @@
     android:elevation="2dp"
     app:cardElevation="2dp"
    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
 
@@ -50,13 +53,20 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerviewProductBoy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewProductBoy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
 
-        </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
     </LinearLayout>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress2"/>
+</RelativeLayout>
 </android.support.v7.widget.CardView>

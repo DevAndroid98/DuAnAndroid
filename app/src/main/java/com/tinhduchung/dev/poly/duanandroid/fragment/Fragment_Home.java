@@ -19,9 +19,12 @@ import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -119,7 +122,12 @@ public class Fragment_Home extends BaseFragment {
 
     private TextView xemthem;
     private RecyclerView recyclerviewoffer;
-
+    ProgressBar progressBar;
+    ProgressBar progressBar1;
+    ProgressBar progressBar2;
+    ProgressBar progressBar3;
+    ProgressBar progressBar4;
+    ProgressBar progressBar5;
 
 
 
@@ -130,6 +138,13 @@ public class Fragment_Home extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
+
+         progressBar = view.findViewById(R.id.progress);
+         progressBar1 = view.findViewById(R.id.progress1);
+         progressBar2 = view.findViewById(R.id.progress2);
+         progressBar3 = view.findViewById(R.id.progress3);
+         progressBar4 = view.findViewById(R.id.progress4);
+         progressBar5 = view.findViewById(R.id.progress5);
         mapped();
         getiduser();
         Intent intent = getActivity().getIntent();
@@ -192,6 +207,7 @@ public class Fragment_Home extends BaseFragment {
             }
         });
         getoffer();
+
         return view;
     }
 
@@ -241,6 +257,12 @@ public class Fragment_Home extends BaseFragment {
                             productsphone.add(0, product);
                             productshouse.add(0, product);
                             list.add(0, product);
+                            progressBar.setVisibility(View.GONE);
+                            progressBar1.setVisibility(View.GONE);
+                            progressBar2.setVisibility(View.GONE);
+                            progressBar3.setVisibility(View.GONE);
+                            progressBar4.setVisibility(View.GONE);
+                            progressBar5.setVisibility(View.GONE);
                             if (productnew.size() < 50) {
                                 productnew.add(0, product);
                                 i++;
@@ -528,13 +550,15 @@ public class Fragment_Home extends BaseFragment {
             offer.add(product.getIdsp());
         }
        if (!offer.isEmpty()){
-           mDatabase.child("id").child("User").child(id).child("user").child("offer").setValue(offer)
-                   .addOnSuccessListener(new OnSuccessListener<Void>() {
-                       @Override
-                       public void onSuccess(Void aVoid) {
+         if (id!=null){
+             mDatabase.child("id").child("User").child(id).child("user").child("offer").setValue(offer)
+                     .addOnSuccessListener(new OnSuccessListener<Void>() {
+                         @Override
+                         public void onSuccess(Void aVoid) {
 
-                       }
-                   });
+                         }
+                     });
+         }
        }
         final Dialog dialog = new Dialog(getActivity(), R.style.PauseDialog1);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
