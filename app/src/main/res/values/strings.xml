@@ -102,4 +102,6 @@
     <string name="booth_for_phone">Điện thoại</string>
     <string name="manage_product">Quản lý sản phẩm</string>
     <string name="nullcart">Giỏ hàng trống</string>
+    <string name="exit">Bạn có muốn thoát không!!!</string>
+    <string name="cancel">Hủy</string>
 </resources>

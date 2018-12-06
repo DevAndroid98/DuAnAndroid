@@ -2,6 +2,7 @@ package com.tinhduchung.dev.poly.duanandroid.fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,6 +94,7 @@ public class Fragment_Menu extends BaseFragment {
         mapped();
         Support();
         addProduct();
+        Exit();
 
         name = intent.getStringExtra("name");
         uri = intent.getStringExtra("uri");
@@ -284,7 +287,6 @@ public class Fragment_Menu extends BaseFragment {
         txtUsername = view.findViewById(R.id.txtUsername);
         btnLogin = view.findViewById(R.id.btnLogin);
         cvUserinfor = view.findViewById(R.id.cvUserinfor);
-        cvCart =  view.findViewById(R.id.cvCart);
         cvAddProduct = view.findViewById(R.id.cvAddProduct);
         cvManageProduct = view.findViewById(R.id.cvManage);
         cvHelp =  view.findViewById(R.id.cvHelp);
@@ -401,6 +403,33 @@ public class Fragment_Menu extends BaseFragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), SupportActivity.class));
+            }
+        });
+    }
+
+    public void Exit(){
+        cvQuit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setTitle(R.string.logout);
+                builder.setMessage(R.string.exit);
+                builder.setCancelable(false);
+                builder.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.except, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        System.exit(0);
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }

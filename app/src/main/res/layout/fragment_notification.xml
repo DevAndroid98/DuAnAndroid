@@ -4,27 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvNotifi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/cardview_promotion" />
-
-        <include layout="@layout/cardview_promotion" />
-
-        <include layout="@layout/cardview_promotion" />
-
-        <include layout="@layout/cardview_promotion" />
-
-        <include layout="@layout/cardview_promotion" />
-        <include layout="@layout/cardview_promotion" />
-        <include layout="@layout/cardview_promotion" />
-        <include layout="@layout/cardview_promotion" />
-        <include layout="@layout/cardview_promotion" />
-
-
-    </LinearLayout>
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 
 </ScrollView>
