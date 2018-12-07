@@ -1,18 +1,9 @@
 package com.tinhduchung.dev.poly.duanandroid;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -20,9 +11,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +19,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -40,12 +27,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.tinhduchung.dev.poly.duanandroid.base.BaseActivity;
-import com.tinhduchung.dev.poly.duanandroid.fragment.Fragment_Menu;
 
 import java.util.concurrent.TimeUnit;
 
