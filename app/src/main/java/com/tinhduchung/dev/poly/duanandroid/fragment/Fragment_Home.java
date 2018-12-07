@@ -253,6 +253,7 @@ public class Fragment_Home extends BaseFragment {
                         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                             User.Product product = dataSnapshot.getValue(User.Product.class);
                             Log.e("TAG", product.toString());
+                            products.add(0,product);
                             productsgirl.add(0, product);
                             productsphone.add(0, product);
                             productshouse.add(0, product);
@@ -271,6 +272,10 @@ public class Fragment_Home extends BaseFragment {
                                 if (products != null) {
                                     if (!nam.equalsIgnoreCase(products.get(i).getLoaisp())) {
                                         products.remove(i);
+                                        for (int i=0;i<products.size();i++){
+                                            Log.e("LOL",products.get(i).getNameproduct()+"");
+                                        }
+
 
                                     }
                                 }
@@ -394,8 +399,6 @@ public class Fragment_Home extends BaseFragment {
         gridAdapter = new GridAdapter(Fragment_Home.this, products);
         gif = dialog.findViewById(R.id.gif);
         gif.setAdapter(gridAdapter);
-
-
         dialog.show();
 
     }
