@@ -206,6 +206,12 @@ public class Fragment_Home extends BaseFragment {
                 reviewsview();
             }
         });
+        xemthem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewDexuat();
+            }
+        });
         getoffer();
 
         return view;
@@ -545,6 +551,38 @@ public class Fragment_Home extends BaseFragment {
 
         dialog.show();
 
+    }
+    public void reviewDexuat(){
+        final Dialog dialog = new Dialog(getActivity(), R.style.PauseDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.item_for_boy);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
+
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
+        ImageView left;
+        TextView textView;
+        textView = dialog.findViewById(R.id.nameshop);
+        textView.setText("Đề xuất cho bạn");
+        left = dialog.findViewById(R.id.left);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        GridView gif = dialog.findViewById(R.id.gif);
+        gridAdapter = new GridAdapter(Fragment_Home.this, productoffer);
+        gif = dialog.findViewById(R.id.gif);
+        gif.setAdapter(gridAdapter);
+
+        dialog.show();
     }
 
 

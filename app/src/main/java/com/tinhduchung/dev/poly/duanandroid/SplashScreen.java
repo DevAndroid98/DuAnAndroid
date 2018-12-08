@@ -144,7 +144,7 @@ public class SplashScreen extends BaseActivity {
                 });
 
                 try {
-                    Thread.sleep(30);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

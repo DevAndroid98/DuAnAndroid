@@ -86,7 +86,7 @@ public class Fragment_Cart extends BaseFragment {
                     User.cartsp cartsp = dataSnapshot.getValue(User.cartsp.class);
                     if (dataSnapshot.getKey() != null) {
                         Log.e("CHECK", dataSnapshot.getKey());
-                        idspham.add(dataSnapshot.getKey());
+                        idspham.add(0,dataSnapshot.getKey());
                         loading.setVisibility(View.INVISIBLE);
                         scrollView.setAlpha(1f);
                     }
