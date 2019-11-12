@@ -219,7 +219,7 @@ public class Fragment_Home extends BaseFragment {
 
     private void mapped() {
         storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReferenceFromUrl("gs://onlinestore-3ac1a.appspot.com");
+        storageRef = storage.getReferenceFromUrl("gs://os1221.appspot.com");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         cvForMan = view.findViewById(R.id.cvForMan);
         btnMoreman = view.findViewById(R.id.btnMoreman);

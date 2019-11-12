@@ -92,7 +92,7 @@ public class AccountInformationActivity extends AppCompatActivity {
         edtemailinfo =  findViewById(R.id.edtemailinfo);
         btnSaveuserinfo =  findViewById(R.id.btnSaveuserinfo);
         storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReferenceFromUrl("gs://onlinestore-3ac1a.appspot.com");
+        storageRef = storage.getReferenceFromUrl("gs://os1221.appspot.com");
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 

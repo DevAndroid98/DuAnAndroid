@@ -107,7 +107,7 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
         storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReferenceFromUrl("gs://onlinestore-3ac1a.appspot.com");
+        storageRef = storage.getReferenceFromUrl("gs://os1221.appspot.com");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -282,6 +282,7 @@ public class AddProductActivity extends AppCompatActivity {
         listLoai.add("Quần áo nữ");
         listLoai.add("Điện thoại");
         listLoai.add("Đồ gia dụng");
+
 
 
         ArrayAdapter adapter = new ArrayAdapter(AddProductActivity.this, android.R.layout.simple_spinner_item, listLoai);

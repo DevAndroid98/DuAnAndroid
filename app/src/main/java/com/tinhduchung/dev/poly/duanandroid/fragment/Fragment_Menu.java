@@ -88,7 +88,7 @@ public class Fragment_Menu extends BaseFragment {
         view = inflater.inflate(R.layout.fragment_menu,container, false);
         intent = getActivity().getIntent();
         storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReferenceFromUrl("gs://onlinestore-3ac1a.appspot.com");
+        storageRef = storage.getReferenceFromUrl("gs://os1221.appspot.com");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sharedPreferences=getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
         mapped();
